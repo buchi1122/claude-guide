@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Claudeを"使う"から"運用する"へ — 友人向けガイド</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Noto+Serif+JP:wght@600;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#20242c; --ink2:#3b4350; --sub:#6b7280;
+  --paper:#f4f1ea; --surface:#ffffff; --surface2:#fbf9f4;
+  --accent:#c9603f; --accent-d:#a94d30; --accent-soft:#f6e4da;
+  --teal:#1f7a70; --teal-d:#155f57; --teal-soft:#e3f0ed;
+  --gold:#c99326; --gold-d:#9c7015; --gold-soft:#f4e9cf;
+  --line:#e4ddcf; --hair:#d8cfbd;
+  --r-s:8px; --r-m:16px; --r-l:24px;
+  --sp-2:16px; --sp-3:24px; --sp-4:32px; --sp-6:48px;
+  --shadow-s:0 4px 16px rgba(40,32,22,.05);
+  --shadow-l:0 30px 80px rgba(0,0,0,.5);
+  --sans:"Noto Sans JP",-apple-system,BlinkMacSystemFont,"Hiragino Sans",sans-serif;
+  --serif:"Noto Serif JP",serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font-family:var(--sans);background:#111318;color:var(--ink);overflow:hidden}
+#stage{position:fixed;inset:0;display:flex;align-items:center;justify-content:center}
+.slide{position:absolute;width:min(96vw,1300px);height:min(96vh,731px);background:var(--paper);border-radius:var(--r-l);overflow:hidden;box-shadow:var(--shadow-l);display:none;flex-direction:column}
+.slide.active{display:flex}
+.pad{padding:56px 68px;flex:1;display:flex;flex-direction:column;min-height:0}
+.kicker{color:var(--accent-d);font-weight:900;font-size:13.5px;letter-spacing:.22em;text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:12px}
+.kicker::before{content:"";width:30px;height:2px;background:var(--accent)}
+h1{font-family:var(--serif);font-size:62px;line-height:1.15;font-weight:900;color:var(--ink);letter-spacing:.01em}
+h2{font-family:var(--serif);font-size:41px;line-height:1.2;font-weight:800;color:var(--ink);letter-spacing:.01em}
+.lead{font-size:21px;line-height:1.75;color:#41474f;font-weight:500}
+.hl{background:linear-gradient(transparent 56%,var(--accent-soft) 56%);padding:0 3px;font-weight:700}
+.serif{font-family:var(--serif)}
+.rule{height:1px;background:var(--hair);border:none;margin:22px 0}
+
+/* title */
+.title{background:radial-gradient(130% 130% at 12% 0%,#2b2e37 0%,#1c1f27 55%,#141620 100%);color:#fff;justify-content:center}
+.title .kicker{color:var(--accent)}.title .kicker::before{background:var(--accent)}
+.title h1{color:#fff;font-size:70px}.title .lead{color:#c9cdd6}
+.title .foot{color:rgba(255,255,255,.5)}.title .foot .pg{color:#fff}
+.hero-line{position:absolute;right:60px;bottom:110px;width:340px;opacity:.95}
+
+/* editorial numbered cells */
+.grid{display:grid;gap:1px;background:var(--hair);border:1px solid var(--hair);border-radius:var(--r-m);overflow:hidden;margin-top:var(--sp-3);flex:1;min-height:0}
+.g2{grid-template-columns:1fr 1fr}.g3{grid-template-columns:1fr 1fr 1fr}.g2x2{grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr}
+.item{background:var(--surface);padding:26px 30px;display:flex;flex-direction:column;min-height:0;position:relative}
+.item.tint{background:var(--surface2)}
+.item.dark{background:#22262f;color:#eceef2}
+.item .no{font-family:var(--serif);font-size:34px;font-weight:900;line-height:1;color:var(--accent);margin-bottom:14px;letter-spacing:.02em}
+.item.teal .no{color:var(--teal)}.item.gold .no{color:var(--gold-d)}.item.dark .no{color:#e2a184}
+.item .t{font-size:22px;font-weight:800;color:var(--ink);margin-bottom:8px;letter-spacing:.01em}
+.item.dark .t{color:#fff}
+.item .d{font-size:16px;line-height:1.64;color:#4b535d}
+.item.dark .d{color:#c3c8d0}
+.item .mark{position:absolute;top:26px;right:30px;font-family:var(--serif);font-size:15px;font-weight:800;color:var(--sub);letter-spacing:.1em}
+
+/* before / after with the ONE meaningful chart */
+.ba{display:grid;grid-template-columns:1fr 1fr;gap:var(--sp-3);margin-top:var(--sp-3)}
+.ba .box{border-radius:var(--r-m);padding:28px 32px;display:flex;flex-direction:column}
+.ba .before{background:var(--surface);border:1px solid var(--line)}
+.ba .after{background:linear-gradient(158deg,#26433e,#1b322e);color:#e9f3f0}
+.ba .lab{font-family:var(--serif);font-size:20px;font-weight:800;margin-bottom:16px;letter-spacing:.02em}
+.ba .before .lab{color:var(--sub)}.ba .after .lab{color:#8fd3c6}
+.ba li{font-size:16.5px;line-height:1.9;list-style:none;padding-left:22px;position:relative}
+.ba .before li{color:#5a626d}.ba .before li::before{content:"";position:absolute;left:0;top:13px;width:9px;height:1.5px;background:#c2c7cf}
+.ba .after li::before{content:"";position:absolute;left:1px;top:9px;width:7px;height:7px;border-right:1.5px solid #7ecbbc;border-top:1.5px solid #7ecbbc;transform:rotate(45deg)}
+.ba .chartwrap{margin-top:auto;padding-top:18px}
+.ba .cap{font-size:12px;letter-spacing:.08em;font-weight:800;margin-top:8px;text-transform:uppercase}
+.ba .before .cap{color:#a7adb6}.ba .after .cap{color:#7ecbbc}
+
+/* teaching strip — editorial, colored top-border, no cartoon icons */
+.teach{margin-top:var(--sp-3);display:grid;grid-template-columns:1fr 1.4fr 1fr;gap:var(--sp-2);flex:0 0 auto}
+.tblock{background:var(--surface);border:1px solid var(--line);border-top:3px solid var(--sub);border-radius:0 0 12px 12px;padding:16px 20px}
+.tblock.s{border-top-color:#3f7bb3}.tblock.a{border-top-color:var(--accent)}.tblock.d{border-top-color:var(--teal)}
+.tl{font-weight:900;font-size:11.5px;letter-spacing:.14em;margin-bottom:8px;text-transform:uppercase}
+.tblock.s .tl{color:#3f7bb3}.tblock.a .tl{color:var(--accent-d)}.tblock.d .tl{color:var(--teal-d)}
+.tbody{font-size:15px;line-height:1.56;color:#3d4450}.say{font-weight:700;color:#7a4426}
+
+/* chips */
+.chips{display:flex;flex-wrap:wrap;gap:11px;margin-top:var(--sp-2)}
+.chip{background:var(--surface);border:1px solid var(--line);color:var(--ink);border-radius:8px;padding:10px 16px;font-size:15px;font-weight:700}
+.chip b{color:var(--accent-d)}
+
+/* plain list */
+ul.plain{margin-top:var(--sp-2)}
+ul.plain li{font-size:21px;line-height:1.95;list-style:none;padding-left:44px;position:relative;color:#3d4450}
+ul.plain li .ln{position:absolute;left:0;top:2px;font-family:var(--serif);font-weight:900;font-size:20px;color:var(--accent)}
+ul.plain b{color:var(--ink)}
+
+/* layered diagram (slide 3) */
+.stack{display:flex;flex-direction:column;gap:10px;margin-top:var(--sp-3);flex:1;justify-content:center}
+.band{display:flex;align-items:center;gap:22px;border-radius:12px;padding:18px 26px;border:1px solid var(--line);background:var(--surface)}
+.band .bno{font-family:var(--serif);font-size:30px;font-weight:900;width:40px;flex:0 0 auto}
+.band .bt{font-size:21px;font-weight:800;color:var(--ink);width:210px;flex:0 0 auto}
+.band .bd{font-size:16px;color:#565f6a;line-height:1.5}
+.band.l1{background:#22262f;border:none}.band.l1 .bno{color:#e2a184}.band.l1 .bt{color:#fff}.band.l1 .bd{color:#c3c8d0}
+.band.l2{background:var(--accent-soft);border-color:#ecccbc}.band.l2 .bno{color:var(--accent-d)}
+.band.l3{background:var(--teal-soft);border-color:#c9e5df}.band.l3 .bno{color:var(--teal-d)}
+.band.l4{background:var(--gold-soft);border-color:#e6d3a6}.band.l4 .bno{color:var(--gold-d)}
+
+/* loop diagram (slide 6) */
+.loop{display:flex;align-items:center;justify-content:center;gap:6px;margin:var(--sp-3) 0 4px}
+.loop .node{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:11px 20px;font-size:15px;font-weight:800;color:var(--ink)}
+.loop .node.on{background:var(--accent-soft);border-color:#ecccbc;color:var(--accent-d)}
+.loop svg{color:var(--hair)}
+
+/* design system specimen (slide 11) */
+.ds{display:grid;grid-template-columns:1.1fr 1fr 1fr;gap:1px;background:var(--hair);border:1px solid var(--hair);border-radius:var(--r-m);overflow:hidden;margin-top:var(--sp-3);flex:1;min-height:0}
+.dscell{background:var(--surface);padding:24px 26px}
+.dscell .dsl{font-family:var(--serif);font-size:17px;font-weight:800;color:var(--ink);margin-bottom:14px;letter-spacing:.06em}
+.swatches{display:flex;gap:9px;flex-wrap:wrap}
+.sw{width:46px;height:46px;border-radius:10px;border:1px solid rgba(0,0,0,.06)}
+.sw span{display:block;font-size:9px;text-align:center;margin-top:50px;color:var(--sub);white-space:nowrap}
+.tokrow{display:flex;gap:8px;align-items:center;margin:10px 0;font-size:14px;color:#565f6a}
+.tokchip{background:var(--surface2);border:1px solid var(--line);border-radius:7px;padding:5px 11px;font-weight:800;color:var(--ink);font-family:var(--serif)}
+.spec div{color:var(--ink);line-height:1.05;margin:9px 0}
+.dsd{font-size:13.5px;color:var(--sub);margin-top:14px}
+
+/* foot / chrome */
+.foot{position:absolute;bottom:20px;left:68px;right:68px;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:var(--sub);letter-spacing:.1em;text-transform:uppercase}
+.foot .pg{font-family:var(--serif);font-weight:800;color:var(--ink);letter-spacing:.05em}
+#dots{position:fixed;bottom:14px;left:50%;transform:translateX(-50%);display:flex;gap:7px;z-index:40}
+#dots i{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.28);cursor:pointer;transition:.2s}
+#dots i.on{background:var(--accent);width:22px;border-radius:4px}
+#hint{position:fixed;top:14px;right:18px;color:rgba(255,255,255,.5);font-size:12.5px;z-index:40}#hint b{color:#fff}
+#note{position:fixed;left:50%;bottom:64px;transform:translateX(-50%);width:min(90vw,940px);background:#171a21;color:#e8eaef;border-radius:var(--r-m);padding:20px 26px;box-shadow:0 24px 60px rgba(0,0,0,.55);display:none;z-index:50;font-size:16px;line-height:1.75;border:1px solid #2a2e37}
+#note.show{display:block}
+#note .nh{color:var(--accent);font-weight:900;font-size:12px;letter-spacing:.12em;margin-bottom:8px;text-transform:uppercase}
+.tag{display:inline-block;background:var(--surface2);border:1px solid var(--line);border-radius:6px;padding:2px 8px;font-size:13.5px;font-weight:700;color:var(--accent-d);font-family:var(--serif)}
+
+/* ===== navigation: click zones + arrow buttons ===== */
+.navzone{position:fixed;top:0;bottom:0;width:20%;z-index:30;cursor:pointer}
+.navzone.prev{left:0}.navzone.next{right:0}
+.navbtn{position:fixed;top:50%;transform:translateY(-50%);z-index:35;width:46px;height:46px;border-radius:50%;background:rgba(20,22,28,.4);border:1px solid rgba(255,255,255,.25);display:flex;align-items:center;justify-content:center;cursor:pointer;color:#fff;font-size:28px;font-family:var(--serif);line-height:1;user-select:none;transition:background .15s}
+.navbtn:hover{background:rgba(20,22,28,.62)}
+.navbtn.prev{left:16px}.navbtn.next{right:16px}
+/* ===== mobile ===== */
+@media(max-width:820px){
+  #hint{display:none}
+  .navbtn{display:none}
+  #stage{align-items:flex-start}
+  .slide{position:relative;width:100vw;min-height:100dvh;height:auto;border-radius:0;box-shadow:none;overflow-y:auto}
+  .pad{padding:56px 20px 84px}
+  h1{font-size:34px!important}h2{font-size:26px!important}
+  .lead{font-size:16px!important}
+  .setnum{display:none}
+  .grid,.two,.det,.ds,.ba,.reqs,.dnote{grid-template-columns:1fr!important}
+  .g2,.g3,.g2x2,.g-map,.g-2x2,.g-3{grid-template-columns:1fr!important;grid-template-rows:auto!important}
+  .span2{grid-column:auto!important}
+  .step{flex-direction:column;gap:18px}
+  .step .left{flex:none}
+  .mock{min-height:200px}
+  .teach{grid-template-columns:1fr!important}
+  .stack{gap:8px}
+  .band{flex-wrap:wrap;gap:6px 16px;padding:14px 18px}
+  .band .bt{width:auto}
+  .cmp{display:block;overflow-x:auto;font-size:13px}
+  .cmp th,.cmp td{padding:9px 11px}
+  .cmp tbody th{width:auto;min-width:84px}
+  .dflow{flex-direction:column}.dflow svg{transform:rotate(90deg)}
+  .loop{flex-wrap:wrap;gap:8px}
+  .chips{gap:8px}
+  .foot{left:20px;right:20px;bottom:14px;font-size:11px}
+  .choose .crow{gap:12px}.choose .ans{width:auto}
+}
+
+.setnum{position:absolute;right:60px;bottom:90px;font-family:var(--serif);font-size:150px;font-weight:900;color:rgba(201,96,63,.16);line-height:1}
+/* ===== 詳細トグル & 発表者ノート ===== */
+.detailbtn{position:fixed;left:50%;transform:translateX(-50%);bottom:40px;z-index:36;background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:7px 18px;font-size:13px;font-weight:800;color:var(--accent-d);cursor:pointer;box-shadow:var(--shadow-s);user-select:none}
+.detailbtn:hover{background:var(--surface2)}
+.detailpanel{position:fixed;left:0;right:0;bottom:0;z-index:60;background:rgba(22,24,30,.975);color:#e8eaef;padding:24px 64px 30px;transform:translateY(100%);transition:transform .28s cubic-bezier(.4,0,.2,1);max-height:62%;overflow-y:auto;border-top:2px solid var(--accent)}
+.detailpanel.open{transform:translateY(0)}
+.detailpanel .dh{color:var(--accent);font-weight:900;font-size:12px;letter-spacing:.12em;text-transform:uppercase;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center}
+.detailpanel .dx{cursor:pointer;color:#9aa2af;font-size:13px}
+.detailpanel .dbody{font-size:16.5px;line-height:1.82}
+@media(max-width:820px){.detailbtn{bottom:34px}.detailpanel{padding:20px 22px 26px;max-height:74%}}
+</style>
+</head>
+<body>
+<div id="hint">← → / 画面端クリック / スワイプ　·　<b>D</b> 詳細　·　<b>P</b> 発表者ノート　·　<b>F</b> 全画面</div>
+<div id="stage">
+
+<!-- 1 TITLE -->
+<section class="slide title active" data-note="つかみ：『AIって皆、質問して答えもらって終わりでしょ。俺は"仕組み"にしてる。今日は実際の画面で見せる』。最後のスライドで"これ自体Claude作"と明かす伏線を張る。" data-detail="「運用」とは、AIに毎回説明し直す手間をなくすこと。この後の4つの仕組みは、どれも「次に渡す文脈を残す」ための道具です。全部を一度に入れる必要はありません。">
+  <div class="pad">
+    <div class="kicker">Part 02 ── 運用編（BUCHI流）</div>
+    <h1>Claudeを<br>"使う"から<br>"運用する"へ。</h1>
+    <p class="lead" style="margin-top:28px;max-width:640px">質問して答えをもらうだけの人が9割。<br>この30分で、AIに文脈を積み上げる側に回る。</p>
+  </div>
+  <div class="setnum">02</div>
+  <div class="foot"><span>友人向けガイド</span><span class="pg">01 / 12</span></div>
+</section>
+
+<!-- 2 WHY — the one meaningful chart -->
+<section class="slide" data-note="共感を取る。『昨日と同じ資料を上げて、また一から説明してない？』。Before側は友人の実体験。グラフは"積み上がるか/フラットか"の概念図。データでなく概念を表す図だと明示してOK。" data-detail="多くの人がAIに満足できないのは能力の限界ではなく、文脈が毎回リセットされるから。同じ説明を繰り返す負担が、AIを「賢い検索」で終わらせています。運用は、その負担を仕組みに肩代わりさせることです。">
+  <div class="pad">
+    <div class="kicker">なぜ運用するのか</div>
+    <h2>毎回ゼロから説明していないか？</h2>
+    <div class="ba">
+      <div class="box before">
+        <div class="lab">使うだけ ── 9割の人</div>
+        <li>資料を上げ、質問し、答えをもらい、閉じる</li>
+        <li>翌日また同じ説明を一から</li>
+        <li>好み・前提・判断が毎回リセット</li>
+        <div class="chartwrap"><div class="cap">結果：積み上がらない — 毎日フラット</div></div>
+      </div>
+      <div class="box after">
+        <div class="lab">運用する ── この先の話</div>
+        <li>文脈が積み上がる場所を作る</li>
+        <li>前回の続きから始められる</li>
+        <li>好み・判断・経緯をAIが参照する</li>
+        <div class="chartwrap"><div class="cap">結果：使うほど賢く・自分専用に</div></div>
+      </div>
+    </div>
+    <p class="lead" style="margin-top:var(--sp-3)">効くのは細かいコツより、<span class="hl">あとからAIに渡せる文脈がどれだけ残っているか</span>。</p>
+  </div>
+  <div class="foot"><span>Why</span><span class="pg">02 / 12</span></div>
+</section>
+
+<!-- 3 MAP — stacked bands -->
+<section class="slide" data-note="全体像。『難しく見えて4つだけ』と安心させる。下から積み上がる図。1つずつこの後説明する、と予告。" data-detail="4つは上から下へ依存しています。会話（起点）→記憶（貯める）→指示（性格）→自動化（省力化）。初心者はまず「記憶」だけでも効果を実感できます。">
+  <div class="pad">
+    <div class="kicker">全体像</div>
+    <h2>仕組みは、4つの層だけ</h2>
+    <div class="stack">
+      <div class="band l1"><div class="bno">01</div><div class="bt">会話する場所</div><div class="bd">Cowork（作業）と Chat（相談）。ここで実際に頼む。全ての起点。</div></div>
+      <div class="band l2"><div class="bno">02</div><div class="bt">記憶する場所</div><div class="bd">Vault＋メモリ。AIに渡す文脈を貯める家。プロジェクトごとに整理。</div></div>
+      <div class="band l3"><div class="bno">03</div><div class="bt">指示</div><div class="bd">カスタム指示＋モード。AIの性格を固定する。</div></div>
+      <div class="band l4"><div class="bno">04</div><div class="bt">自動化</div><div class="bd">引き継ぎで会話を跨ぎ、定期タスクで自動で見張る。手間を肩代わり。</div></div>
+    </div>
+  </div>
+  <div class="foot"><span>全体像</span><span class="pg">03 / 12</span></div>
+</section>
+
+<!-- 4 INSTRUCTIONS -->
+<section class="slide" data-note="自分のカスタム指示の設定画面を見せる。『AIの性格をここで固定。俺のはお世辞禁止・推測は推測と言え・検索してから答えろ』。効果をその場で比べられれば強い。" data-detail="カスタム指示は一度書けば全会話に効く初期設定。コツは、してほしくないこと（お世辞禁止など）も書くこと。AIの癖を自分好みに矯正できます。">
+  <div class="pad">
+    <div class="kicker">仕組み ── 指示（層03）</div>
+    <h2>AIの"性格"を、先に決める</h2>
+    <p class="lead">毎回お願いする代わりに、設定に一度書けば全ての会話に効く。</p>
+    <div class="chips">
+      <span class="chip"><b>簡潔に</b>・前置き要らない</span>
+      <span class="chip">推測は<b>「推測」</b>と明示</span>
+      <span class="chip">固有名詞・数値は<b>検索してから</b></span>
+      <span class="chip"><b>結論から</b>先に</span>
+      <span class="chip">間違いは<b>取り違え→正→再発防止</b></span>
+    </div>
+    <div class="teach">
+      <div class="tblock s"><div class="tl">見せる画面</div><div class="tbody">設定 → カスタム指示の編集画面</div></div>
+      <div class="tblock a"><div class="tl">あなたのセリフ</div><div class="tbody say">「ここに"どう振る舞ってほしいか"を書く。俺のはお世辞禁止・推測は推測と言え・検索してから答えろ。これで毎回頼まなくて済む」</div></div>
+      <div class="tblock d"><div class="tl">友人の操作</div><div class="tbody">まず3行：簡潔に／推測は明示／結論から</div></div>
+    </div>
+  </div>
+  <div class="foot"><span>指示</span><span class="pg">04 / 12</span></div>
+</section>
+
+<!-- 5 VAULT -->
+<section class="slide" data-note="Obsidianの実Vaultを見せる。プロジェクト一覧まで。個別の中身は開かない（機微）。private/の存在も見せ『機微はここに隔離してAIにも出さない』。" data-detail="Obsidianは無料のメモアプリ。ここではAIに読ませる前提でフォルダとルールを整えます。機微をprivateに隔離するのは、後で共有や公開をしても事故らないための保険です。">
+  <div class="pad">
+    <div class="kicker">仕組み ── 記憶（層02）</div>
+    <h2>Obsidian Vault ＝ 文脈の家</h2>
+    <div class="grid g2">
+      <div class="item tint"><div class="no">A</div><div class="t">プロジェクトで分ける</div><div class="d">仕事・趣味・創作など領域ごとにフォルダ。各フォルダに「運用ルール」と「目次」を置くと、AIが作業前に読んで前提を掴む。</div></div>
+      <div class="item tint"><div class="no">B</div><div class="t">機微は private に隔離</div><div class="d">お金・取引・個人的なことは各プロジェクトの <span class="tag">private/</span> へ。共有・公開の単位から自動で外れ、AIのメモリにも残さない。</div></div>
+    </div>
+    <hr class="rule" style="margin:18px 0 0">
+    <p class="lead" style="margin-top:16px;font-size:19px"><span class="hl">人が読むノートと、AIが読む記憶は設計が違う。</span>だから分けておくと、どっちも軽くなる。</p>
+    <div class="teach">
+      <div class="tblock s"><div class="tl">見せる画面</div><div class="tbody">Obsidianのフォルダ一覧</div></div>
+      <div class="tblock a"><div class="tl">あなたのセリフ</div><div class="tbody say">「AIは記憶が飛ぶから、渡す文脈を外に貯める。フォルダごとにルールを書けば毎回説明しなくていい」</div></div>
+      <div class="tblock d"><div class="tl">友人の操作</div><div class="tbody">1フォルダ＋「運用ルール.md」1枚から</div></div>
+    </div>
+  </div>
+  <div class="foot"><span>記憶</span><span class="pg">05 / 12</span></div>
+</section>
+
+<!-- 6 HANDOFF -->
+<section class="slide" data-note="引き継ぎの実演がベスト。今の会話で『引き継ぎ保存』と言い、ログに差分が溜まる様子を見せる。新会話で『引き継ぎ読んで』で復元まで見せられれば完璧。" data-detail="会話そのものは消えても、決定と前提をログに残せば知識は消えません。「保存」「読んで」の2語で、昨日の自分から今日の自分へバトンが渡ります。">
+  <div class="pad">
+    <div class="kicker">仕組み ── 記憶×自動化（層02・04）</div>
+    <h2>会話を跨いで、続きから</h2>
+    <div class="loop">
+      <span class="node on">引き継ぎ保存</span>
+      <svg width="34" height="16" viewBox="0 0 34 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 8h28M25 3l6 5-6 5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span class="node">ログに溜まる</span>
+      <svg width="34" height="16" viewBox="0 0 34 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 8h28M25 3l6 5-6 5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span class="node on">引き継ぎ読んで</span>
+      <svg width="34" height="16" viewBox="0 0 34 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 8h28M25 3l6 5-6 5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span class="node">続きから</span>
+    </div>
+    <div class="grid g3" style="margin-top:var(--sp-2)">
+      <div class="item"><div class="no">1</div><div class="t">自動メモリ</div><div class="d">「これ覚えて」で、会話を跨いで使う短いメモを残す。誰か・好み・進行中の案件。</div></div>
+      <div class="item teal"><div class="no">2</div><div class="t">引き継ぎログ</div><div class="d"><span class="tag">保存</span>で決定・前提・未決を記録。<span class="tag">読んで</span>で現在地から再開。</div></div>
+      <div class="item gold"><div class="no">3</div><div class="t">持ち出し</div><div class="d">制限中やスマホの時は他AIに貼れる要約を出し、戻ったら差分を回収。</div></div>
+    </div>
+    <div class="teach">
+      <div class="tblock s"><div class="tl">見せる画面</div><div class="tbody">「引き継ぎ保存」でログに追記</div></div>
+      <div class="tblock a"><div class="tl">あなたのセリフ</div><div class="tbody say">「終わりに"引き継ぎ保存"と言うだけ。翌日、新しい会話で"引き継ぎ読んで"で昨日の続きになる」</div></div>
+      <div class="tblock d"><div class="tl">友人の操作</div><div class="tbody">今日の会話の最後に「引き継ぎ保存」</div></div>
+    </div>
+  </div>
+  <div class="foot"><span>記憶</span><span class="pg">06 / 12</span></div>
+</section>
+
+<!-- 7 MODES -->
+<section class="slide" data-note="モードは"AIの人格切り替え"。『普段は簡潔・正確。作品を一緒に読む時は考察、物語を書く時は創作』。宣言するだけ、中身は設定に。" data-detail="モードは指示のプリセット切り替え。考察は評価せず一緒に見る、創作は事実確認より世界観。用途に合わない性格のままだと、噛み合わない答えが増えます。">
+  <div class="pad">
+    <div class="kicker">仕組み ── モード（層03）</div>
+    <h2>用途で、"人格"を切り替える</h2>
+    <div class="grid g3">
+      <div class="item teal"><div class="no">考</div><div class="t">考察モード</div><div class="d">作品・人物・構造を一緒に見る時。両方の読み筋を残し、決め手を作中事実で示す。相槌でなく共同観察者に。</div></div>
+      <div class="item"><div class="no">創</div><div class="t">創作モード</div><div class="d">物語を書く時。検索や簡潔の縛りを外し、世界観・文体を最優先。叩き台でなく初回から本気で。</div></div>
+      <div class="item gold"><div class="no">常</div><div class="t">通常モード</div><div class="d">既定。正確さ・簡潔さ・検索照合。仕事や調べ物はこれ。</div></div>
+    </div>
+    <p class="lead" style="margin-top:var(--sp-3)">切り替えは<span class="hl">「考察モード」と宣言するだけ</span>。中身は設定に書いてある。</p>
+  </div>
+  <div class="foot"><span>モード</span><span class="pg">07 / 12</span></div>
+</section>
+
+<!-- 8 EXAMPLES — clean editorial cards, no fake charts -->
+<section class="slide" data-note="実例。実画面を見せられるものは見せる（レシピ台帳・監査報告）。受託アプリは"英語学習アプリのプロトタイプ"と抽象化（他人の案件なので固有名は出さない）。" data-detail="いずれもコードを書かない自動化です。プロトタイプ生成・情報の台帳化・定期点検・他AI併用。共通点は、作業をAIに、判断を自分に、という分担です。">
+  <div class="pad">
+    <div class="kicker">実用例</div>
+    <h2>実際に、こう使っている</h2>
+    <div class="grid g2x2">
+      <div class="item"><div class="mark">ものづくり</div><div class="no">01</div><div class="t">動くプロトタイプ</div><div class="d">アプリの画面イメージから、ブラウザで触れる試作を対話で生成。コードを書かずに形にする。</div></div>
+      <div class="item"><div class="mark">情報整理</div><div class="no">02</div><div class="t">情報を資産に変える</div><div class="d">動画リストの概要欄・字幕を読ませて台帳化。ブックマークの山を、検索できる資産に。</div></div>
+      <div class="item"><div class="mark">自動化</div><div class="no">03</div><div class="t">自動の見張り番</div><div class="d">毎月1回、記憶の家を自動点検。機微の漏れや古くなった記述を報告する定期タスク。</div></div>
+      <div class="item"><div class="mark">使い分け</div><div class="no">04</div><div class="t">他のAIと併用</div><div class="d">安いAIで壁打ち→決まった内容だけClaudeに渡して記憶に反映。役割で使い分ける。</div></div>
+    </div>
+  </div>
+  <div class="foot"><span>実用例</span><span class="pg">08 / 12</span></div>
+</section>
+
+<!-- 9 RUN -->
+<section class="slide" data-note="君の台本ページ。友人の前でセットアップを一緒にやる順番。焦らず1つずつ。友人のPCで実際に触らせるのが一番残る。" data-detail="人に教えるときの順番。まず限界を体感させてから道具を渡すと定着します。いきなり全部見せると引かれがち。相手のペースに合わせて1つずつ。">
+  <div class="pad">
+    <div class="kicker">対面での進め方</div>
+    <h2>教えるときの順番</h2>
+    <div class="grid g2x2">
+      <div class="item gold"><div class="no">01</div><div class="t">限界を体感させる</div><div class="d">友人にいつもの使い方をさせ、「昨日の続きは？」で詰まらせる。ここで必要性が伝わる。</div></div>
+      <div class="item teal"><div class="no">02</div><div class="t">指示を3行だけ書かせる</div><div class="d">簡潔に／推測は明示／結論から。前後で答えを比べて効果を実感させる。</div></div>
+      <div class="item"><div class="no">03</div><div class="t">1フォルダ作る</div><div class="d">Obsidianを入れ、運用ルール1枚＋今の用事のメモ1枚。</div></div>
+      <div class="item dark"><div class="no">04</div><div class="t">「引き継ぎ保存」で締める</div><div class="d">次回「引き継ぎ読んで」で戻れると約束して終わる。</div></div>
+    </div>
+  </div>
+  <div class="foot"><span>進め方</span><span class="pg">09 / 12</span></div>
+</section>
+
+<!-- 10 TODAY -->
+<section class="slide" data-note="友人が今日持ち帰る最小セット。『全部は今日やらなくていい。この3つだけで昨日より確実に良くなる』と背中を押す。" data-detail="仕組みは増やすほど読み込みが重くなります。要るものだけ足す引き算の発想が、長く続けるコツ。まず1つ、今の用事で回してみるのが最短です。">
+  <div class="pad">
+    <div class="kicker">今日やること</div>
+    <h2>最小スタート、3つだけ</h2>
+    <ul class="plain">
+      <li><span class="ln">1</span><b>カスタム指示に3行</b>書く（簡潔／推測は明示／結論から）</li>
+      <li><span class="ln">2</span><b>Obsidianで1フォルダ</b>作り、運用ルールを1枚置く</li>
+      <li><span class="ln">3</span>会話の最後に<b>「引き継ぎ保存」</b>と言ってみる</li>
+    </ul>
+    <p class="lead" style="margin-top:var(--sp-3)">全部一気にやらない。<span class="hl">増やすほど重くなる</span>から、要るものだけ足していく。</p>
+    <hr class="rule">
+    <p class="lead" style="font-size:19px;color:#5a3d12"><b class="serif">締めの一言：</b>「仕組みは目的じゃない。何かを作る・進めるための土台。まず1個、今の用事をこれで回してみて」</p>
+  </div>
+  <div class="foot"><span>今日やること</span><span class="pg">10 / 12</span></div>
+</section>
+
+<!-- 11 DESIGN SYSTEM SPECIMEN -->
+<section class="slide" data-note="仕掛け。『ちなみにこのスライド、全部Claudeが作った。色も余白もルール化したデザインシステムの上で組んでる』。AIで整ったデザインが作れる実例＝このスライド自体。" data-detail="このスライドは色・余白・書体を変数化したデザインシステムの上で生成されています。AIは見た目も、ルールを与えれば一貫して作れます。">
+  <div class="pad">
+    <div class="kicker">種明かし</div>
+    <h2>このスライド自体、Claudeが作った。</h2>
+    <p class="lead">色・余白・角丸・書体をルール化した「デザインシステム」の上で組んでいる。それがこの統一感の正体。</p>
+    <div class="ds">
+      <div class="dscell"><div class="dsl">カラー</div><div class="swatches">
+        <div class="sw" style="background:#20242c"></div><div class="sw" style="background:#c9603f"></div><div class="sw" style="background:#1f7a70"></div><div class="sw" style="background:#c99326"></div><div class="sw" style="background:#f4f1ea;border:1px solid #ddd"></div>
+      </div><div class="dsd">役割で色を固定（本文・強調・補助）</div></div>
+      <div class="dscell"><div class="dsl">トークン</div>
+        <div class="tokrow">角丸 <span class="tokchip">8</span><span class="tokchip">16</span><span class="tokchip">24</span></div>
+        <div class="tokrow">余白 <span class="tokchip">16</span><span class="tokchip">24</span><span class="tokchip">32</span><span class="tokchip">48</span></div>
+        <div class="dsd">数値を決め打ちで揃える</div></div>
+      <div class="dscell"><div class="dsl">書体</div><div class="spec">
+        <div class="serif" style="font-size:27px;font-weight:900">見出しは明朝</div>
+        <div style="font-size:16px;font-weight:700">小見出しはゴシック太</div>
+        <div style="font-size:14px;color:#5a626d">本文はゴシック</div>
+      </div><div class="dsd">Bento UI × エディトリアル</div></div>
+    </div>
+  </div>
+  <div class="foot"><span>種明かし</span><span class="pg">11 / 12</span></div>
+</section>
+
+<!-- 12 CLOSE -->
+<section class="slide title" data-note="渡すもの：このスライド、カスタム指示の3行、詰まったら聞いて。次に会う約束で締める。開発に興味を示したらPart 03（Claude Code編）を予告。" data-detail="渡すのはスライドと最小の3ステップだけ。あとは本人が使いながら育てる。仕組みは目的でなく、何かを作るための土台です。開発まで踏み込みたくなったらPart 03（Claude Code編）へ。">
+  <div class="pad">
+    <div class="kicker">渡すもの</div>
+    <h1 style="font-size:54px">まず1個、<br>これで回してみて。</h1>
+    <p class="lead" style="margin-top:26px">・このスライド　　・カスタム指示の3行　　・詰まったら聞いて</p>
+    <p class="lead" style="margin-top:16px;color:#9aa2af">使うほど賢くなる。育てるのは、これから。</p>
+    <p class="lead" style="margin-top:14px;color:#e0a58a;font-size:18px">開発まで踏み込むなら <b class="serif">Part 03 Claude Code編</b> ── ターミナルでAIに開発させる話。</p>
+  </div>
+  <div class="foot"><span>Claude運用ガイド</span><span class="pg">12 / 12</span></div>
+</section>
+
+</div>
+
+<div id="dots"></div>
+<script>
+const slides=[...document.querySelectorAll('.slide')];
+let cur=0, presenterWin=null;
+const dots=document.getElementById('dots');
+slides.forEach((s,i)=>{const d=document.createElement('i');d.onclick=()=>go(i);dots.appendChild(d);});
+slides.forEach(s=>{
+  const dt=s.dataset.detail; if(!dt) return;
+  const btn=document.createElement('div');btn.className='detailbtn';btn.textContent='詳細 ＋';
+  const panel=document.createElement('div');panel.className='detailpanel';
+  panel.innerHTML='<div class="dh"><span>詳細</span><span class="dx">閉じる ✕</span></div><div class="dbody"></div>';
+  panel.querySelector('.dbody').textContent=dt;
+  btn.onclick=()=>{const wasOpen=panel.classList.contains('open');closeDetails();if(!wasOpen)panel.classList.add('open');};
+  panel.querySelector('.dx').onclick=()=>panel.classList.remove('open');
+  s.appendChild(btn);s.appendChild(panel);
+});
+function closeDetails(){document.querySelectorAll('.detailpanel.open').forEach(p=>p.classList.remove('open'));}
+function render(){
+  slides.forEach((s,i)=>s.classList.toggle('active',i===cur));
+  [...dots.children].forEach((d,i)=>d.classList.toggle('on',i===cur));
+  closeDetails();
+  if(presenterWin&&!presenterWin.closed){const d=presenterWin.document,n=d.getElementById('n'),p=d.getElementById('p');if(n)n.textContent='スライド '+(cur+1)+' / '+slides.length;if(p)p.textContent=slides[cur].dataset.note||'（このスライドにノートはありません）';}
+}
+function go(n){cur=Math.max(0,Math.min(slides.length-1,n));render();}
+function openPresenter(){
+  presenterWin=window.open('','deckPresenter','width=560,height=460');
+  if(!presenterWin){alert('ポップアップがブロックされました。許可してください。');return;}
+  presenterWin.document.write('<!DOCTYPE html><meta charset=UTF-8><title>発表者ノート</title><style>body{margin:0;background:#14161d;color:#e8eaef;font-family:-apple-system,Hiragino Sans,sans-serif;padding:26px}#n{color:#8a8f99;font-size:13px;margin-bottom:14px}h3{color:#c9603f;font-size:12px;letter-spacing:.12em;margin:0 0 14px;text-transform:uppercase}#p{font-size:19px;line-height:1.75}.k{color:#6b7280;font-size:12px;margin-top:24px;border-top:1px solid #2a2e37;padding-top:14px}</style><div id=n></div><h3>発表者ノート（この画面は投影されません）</h3><div id=p></div><div class=k>← → でスライドを送れます／このウィンドウは自分の手元だけに置いてください</div>');
+  presenterWin.document.close();
+  presenterWin.addEventListener('keydown',ev=>{if(ev.key==='ArrowRight')go(cur+1);else if(ev.key==='ArrowLeft')go(cur-1);});
+  setTimeout(render,150);
+}
+(function(){const mk=(cls,txt,fn)=>{const el=document.createElement('div');el.className=cls;if(txt)el.textContent=txt;el.addEventListener('click',fn);document.body.appendChild(el);return el;};mk('navzone prev','',()=>go(cur-1));mk('navzone next','',()=>go(cur+1));mk('navbtn prev','‹',()=>go(cur-1));mk('navbtn next','›',()=>go(cur+1));})();
+let _sx=0,_sy=0,_st=0;
+addEventListener('touchstart',e=>{_sx=e.changedTouches[0].clientX;_sy=e.changedTouches[0].clientY;_st=Date.now();},{passive:true});
+addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-_sx,dy=e.changedTouches[0].clientY-_sy;if(Date.now()-_st<800&&Math.abs(dx)>45&&Math.abs(dx)>Math.abs(dy)*1.4){dx<0?go(cur+1):go(cur-1);}},{passive:true});
+addEventListener('keydown',e=>{const k=e.key.toLowerCase();if(e.key==='ArrowRight'||e.key==='PageDown'||e.key===' ')go(cur+1);else if(e.key==='ArrowLeft'||e.key==='PageUp')go(cur-1);else if(k==='f'){if(!document.fullscreenElement)document.documentElement.requestFullscreen();else document.exitFullscreen();}else if(k==='p')openPresenter();else if(k==='d'){const p=slides[cur].querySelector('.detailpanel');if(p){const w=p.classList.contains('open');closeDetails();if(!w)p.classList.add('open');}}});
+render();
+</script>
+</body>
+</html>
