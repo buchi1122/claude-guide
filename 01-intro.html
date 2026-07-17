@@ -134,7 +134,7 @@ ul.plain b{color:var(--ink)}
 /* concept: three-entry map */
 .grid{display:grid;gap:1px;background:var(--hair);border:1px solid var(--hair);border-radius:var(--r-m);overflow:hidden;margin-top:var(--sp-3);flex:1;min-height:0}
 .g3{grid-template-columns:1fr 1fr 1fr}
-.item{background:var(--surface);padding:24px 26px;display:flex;flex-direction:column;justify-content:center}
+.item{background:var(--surface);padding:24px 26px;display:flex;flex-direction:column}
 .item .no{font-family:var(--serif);font-size:28px;font-weight:900;color:var(--accent);margin-bottom:10px}
 .item.teal .no{color:var(--teal-d)}.item.gold .no{color:var(--gold-d)}
 .item .role{font-size:12.5px;font-weight:800;letter-spacing:.06em;color:var(--accent-d);margin-bottom:9px;text-transform:uppercase}
@@ -223,11 +223,11 @@ ul.plain b{color:var(--ink)}
     <div class="two">
       <div class="box a">
         <div class="lab">アシスタント（今までのAI）</div>
-        <div class="desc">質問すると、答えを返す。1問1答。調べたり書いたりを<b>手伝う</b>が、自分では手を動かさない。人がずっと横で操作する。<br><br>例：「京都のおすすめ教えて」→ 候補の文章が返って、終わり。</div>
+        <div class="desc">質問すると、答えを返す。1問1答。調べたり書いたりを<b>手伝う</b>が、自分では手を動かさない。人がずっと横で操作する。<br><br>例：「京都の旅程どう組む？」→ 提案の<b>文章</b>が返ってくる。ここまでが守備範囲。</div>
       </div>
       <div class="box b">
         <div class="lab">エージェント</div>
-        <div class="desc">ゴールを渡すと、自分で段取りして<b>やり遂げる</b>。道具を使い、手を動かし、確認まで。人は結果を受け取る。<br><br>例：「京都2泊の旅程表を作って」→ 調べて・組んで・表に仕上げて渡してくる。</div>
+        <div class="desc">ゴールを渡すと、自分で段取りして<b>やり遂げる</b>。道具を使い、手を動かし、確認まで。人は結果を受け取る。<br><br>例：「フォルダの写真を日付ごとに整理して、一覧表も作って」→ <b>実際にフォルダが片付き、ファイルが増えている</b>。会話だけのAIにはできない領域。</div>
         <div class="flow">
           <span class="n">計画</span><svg width="22" height="13" viewBox="0 0 22 13" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 6.5h16M14 3l5 3.5-5 3.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
           <span class="n">道具を使う</span><svg width="22" height="13" viewBox="0 0 22 13" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 6.5h16M14 3l5 3.5-5 3.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -252,7 +252,7 @@ ul.plain b{color:var(--ink)}
       <div class="item teal"><div class="no">Cowork</div><div class="role">エージェント</div><div class="t">作業させる</div><div class="d">フォルダを渡すと段取りして成果物まで。ターミナル不要。非エンジニア向け。<br><br>例：資料づくり、ファイル整理、このスライドの制作。</div></div>
       <div class="item gold"><div class="no">Code</div><div class="role">エージェント</div><div class="t">開発させる</div><div class="d">ターミナルでコードを読み書き。作る・直す・テストまで。エンジニア向け（Part 03で詳しく）。<br><br>例：アプリ開発、サイト公開、大量ファイルの一括処理。</div></div>
     </div>
-    <p class="lead" style="margin-top:16px;font-size:18px"><b class="serif">＋ Dispatch（ベータ）</b> ── スマホから投げて、デスクトップの裏で自動実行。戻ると成果物ができている。</p>
+    <p class="lead" style="margin-top:16px;font-size:17px"><b class="serif">＋ その先</b> ── <b>Dispatch（ベータ）</b>はスマホから投げてデスクトップの裏で自動実行。Codeには外出先から進行を見る<b>リモート操作</b>も登場（順次展開中）。どちらも慣れてからの応用で、まずはこの3つから。</p>
   </div>
   <div class="wm ink">入口</div>
   <div class="foot"><span>3つの入口</span><span class="pg">03 / 11</span></div>
@@ -267,11 +267,12 @@ ul.plain b{color:var(--ink)}
       <colgroup><col><col><col class="hi"><col></colgroup>
       <thead><tr><th>軸</th><th>Chat</th><th>Cowork</th><th>Code</th></tr></thead>
       <tbody>
-        <tr><th>性格</th><td>アシスタント</td><td>エージェント</td><td>エージェント</td></tr>
-        <tr><th>何をする</th><td>相談・思考・下書き</td><td>作業して成果物</td><td>ソフト開発</td></tr>
-        <tr><th>ファイル操作</th><td class="no">できない</td><td class="yes">つないだ範囲で可</td><td class="yes">広く可</td></tr>
-        <tr><th>コード実行</th><td class="no">しない</td><td>必要時に</td><td class="yes">中心的に</td></tr>
-        <tr><th>使う人</th><td>だれでも</td><td>非エンジニア</td><td>エンジニア</td></tr>
+        <tr><th>性格</th><td>アシスタント（答える）</td><td>エージェント（やり遂げる）</td><td>エージェント（やり遂げる）</td></tr>
+        <tr><th>何をする</th><td>相談・思考・下書き</td><td>作業して成果物を残す</td><td>ソフトを作る・直す</td></tr>
+        <tr><th>得意な例</th><td>文章・翻訳・調べ物の相談</td><td>資料づくり・ファイル整理・調査まとめ</td><td>アプリ・サイト・自動化スクリプト</td></tr>
+        <tr><th>ファイル操作</th><td class="no">できない（会話だけ）</td><td class="yes">つないだフォルダ内で読み書き</td><td class="yes">プロジェクト全体に広く（確認つき）</td></tr>
+        <tr><th>コード実行</th><td class="no">しない</td><td>必要な時だけ（安全な箱の中で）</td><td class="yes">中心的に（ターミナルで）</td></tr>
+        <tr><th>使う人</th><td>だれでも</td><td>非エンジニア</td><td>開発する人</td></tr>
         <tr><th>入口</th><td>Web・アプリ・スマホ</td><td>デスクトップアプリ</td><td>ターミナル・IDE</td></tr>
       </tbody>
     </table>

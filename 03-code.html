@@ -108,6 +108,13 @@ ul.plain b{color:var(--ink)}
 #hint{position:fixed;top:14px;right:18px;color:rgba(255,255,255,.5);font-size:12.5px;z-index:40}#hint b{color:#fff}
 .tag{display:inline-block;background:var(--surface2);border:1px solid var(--line);border-radius:6px;padding:2px 9px;font-size:14px;font-weight:800;color:var(--accent-d);font-family:var(--mono)}
 
+/* loop strip（図解） */
+.loop{display:flex;align-items:center;justify-content:center;gap:6px;margin-top:var(--sp-3);flex-wrap:wrap}
+.loop .node{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 18px;font-size:14.5px;font-weight:800;color:var(--ink)}
+.loop .node.on{background:var(--accent-soft);border-color:#ecccbc;color:var(--accent-d)}
+.loop .node.ai{background:var(--teal-soft);border-color:#c9e5df;color:var(--teal-d)}
+.loop svg{color:var(--hair)}
+
 /* watermark / 現場の記録 / 低画面ガード */
 .wm{position:absolute;right:52px;bottom:66px;font-family:var(--serif);font-weight:900;font-size:150px;line-height:1;color:rgba(201,96,63,.07);letter-spacing:.02em;pointer-events:none;user-select:none;z-index:0}
 .wm.teal{color:rgba(31,122,112,.07)}.wm.gold{color:rgba(201,147,38,.09)}.wm.ink{color:rgba(32,36,44,.05)}
@@ -186,7 +193,7 @@ ul.plain b{color:var(--ink)}
         <tr><th>使う人</th><td>非エンジニア</td><td>開発する人</td></tr>
       </tbody>
     </table>
-    <p class="lead" style="margin-top:16px;font-size:18px">目安：<span class="hl">gitで管理する"開発"ならCode、それ以外はCowork</span>。同じ記憶の家（Vault）を両方から共有できるので、乗り換えでなく使い分けになる。</p>
+    <p class="lead" style="margin-top:16px;font-size:17.5px">なぜCodeが要るのか——開発は<span class="hl">「作る→検証する→直す」の回転数が命</span>で、テスト実行・変更履歴（git）・大量ファイルの一括処理はターミナルの世界にある。Codeはその回転をAIに回させるための入口。目安は「gitで管理する"開発"ならCode、それ以外はCowork」。</p>
   </div>
   <div class="wm ink">境界</div>
   <div class="foot"><span>違い</span><span class="pg">02 / 12</span></div>
@@ -203,7 +210,7 @@ ul.plain b{color:var(--ink)}
       <div class="req"><div class="rn">3</div><div><div class="rt">Claudeアカウント（有料）</div><div class="rd">普段の有料プランでそのまま使える。APIキーでも可。</div></div></div>
       <div class="req"><div class="rn">4</div><div><div class="rt">作業するフォルダ</div><div class="rd">コードを置くプロジェクトの場所。無ければ空フォルダ1つでOK。</div></div></div>
     </div>
-    <p class="lead" style="margin-top:20px;font-size:17.5px">ハードルはNode.jsだけ。<span class="hl">つまずいたらエラー文をそのままClaudeに貼ればいい</span>——導入の途中からもう手伝わせられる。</p>
+    <p class="lead" style="margin-top:20px;font-size:17.5px">ターミナルは「ボタンの代わりに<b>文字で頼む</b>操作画面」——怖い見た目だが、打つのは数行だけ。<span class="hl">つまずいたらエラー文をそのままClaude（Chat）に貼ればいい</span>。導入の途中から、もうAIに手伝わせられる。</p>
   </div>
   <div class="wm ink">支度</div>
   <div class="foot"><span>準備</span><span class="pg">03 / 12</span></div>
@@ -223,6 +230,7 @@ ul.plain b{color:var(--ink)}
           <li><span class="b">c</span><b>sudo は付けない</b>（権限事故の元）</li>
         </div>
         <div class="check"><div class="ct">確認</div><span class="mono" style="font-size:13.5px">claude --version</span> でバージョンが出れば成功。</div>
+        <div class="trip"><div class="ct">これは何</div><b>npm</b>＝Node.jsに付いてくるソフト配布の仕組み。世界中の開発ツールがこの「1行で入る」形式で配られていて、Claude Codeもその1つ。</div>
       </div>
       <div class="term"><div class="bar"><i></i><i></i><i></i><span class="tt">ターミナル</span></div>
         <div class="body"><span class="p">~ %</span> <span class="c">npm install -g @anthropic-ai/claude-code</span><br><br><span class="o">added 1 package in 6s</span><br><span class="g">✓ claude-code installed</span></div>
@@ -247,6 +255,7 @@ ul.plain b{color:var(--ink)}
           <li><span class="b">c</span>開いたブラウザで<b>許可</b>（OAuth・30秒）</li>
         </div>
         <div class="check"><div class="ct">確認</div>入力待ちのプロンプトが出れば準備完了。</div>
+        <div class="trip"><div class="ct">なぜフォルダで起動？</div>Codeは<b>「今いるフォルダ」を仕事場として読む</b>。だから先に仕事場へ移動してから呼ぶのが作法。関係ないフォルダで起動すると、関係ないファイルまで見えてしまう。</div>
       </div>
       <div class="term"><div class="bar"><i></i><i></i><i></i><span class="tt">ターミナル</span></div>
         <div class="body"><span class="p">~ %</span> <span class="c">cd my-project</span><br><span class="p">my-project %</span> <span class="c">claude</span><br><br><span class="o">ブラウザで認証中… ✓ サインイン完了</span><br><br><span class="g">›</span> <span class="o">何をしましょうか？</span></div>
@@ -258,16 +267,27 @@ ul.plain b{color:var(--ink)}
 </section>
 
 <!-- 6 BASIC LOOP -->
-<section class="slide" data-note="基本の回し方。人は"計画を承認するだけ"。ふつうの言葉で頼む→Claudeが変更案を出す→承認→実行→テスト。行単位でレビューしない前提。" data-detail="コツは、細かく指示するより"やってほしい結果"を伝えること。Claudeが計画と変更案を出すので、人はそれを承認するだけ。危ない操作の前には必ず確認が入るので、内容を見てからOKを出せます。">
+<section class="slide" data-note="基本の回し方。頼む→計画→承認→実行→検証のループ。最初は変更を自分でも見る。テストと復元点への信頼が育ってから読む量を減らす——公式の成熟段階（Step1→2）と同じ順序、と補足する。" data-detail="コツは、細かく指示するより"やってほしい結果"を伝えること。Claudeが計画と変更案を出すので、人はそれを承認するだけ。危ない操作の前には必ず確認が入るので、内容を見てからOKを出せます。">
   <div class="pad">
     <div class="kicker">基本の使い方</div>
     <h2>頼む → 承認する → 実行</h2>
+    <div class="loop">
+      <span class="node on">頼む（あなた）</span>
+      <svg width="30" height="16" viewBox="0 0 34 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 8h28M25 3l6 5-6 5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span class="node ai">計画を出す（AI）</span>
+      <svg width="30" height="16" viewBox="0 0 34 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 8h28M25 3l6 5-6 5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span class="node on">承認（あなた）</span>
+      <svg width="30" height="16" viewBox="0 0 34 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 8h28M25 3l6 5-6 5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span class="node ai">実行・自己検証（AI）</span>
+      <svg width="30" height="16" viewBox="0 0 34 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 8h28M25 3l6 5-6 5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span class="node">報告</span>
+    </div>
     <div class="grid g3" style="grid-template-rows:1fr">
       <div class="item"><div class="no">1</div><div class="t">ふつうの言葉で頼む</div><div class="d">「ログイン画面を作って」「このバグを直して」。専門用語は要らない。</div></div>
-      <div class="item teal"><div class="no">2</div><div class="t">変更案を承認</div><div class="d">Claudeが計画と差分を提示。人はそれを見てOKを出すだけ。</div></div>
+      <div class="item teal"><div class="no">2</div><div class="t">変更案を承認</div><div class="d">Claudeが計画と差分を提示。内容を確かめてからOKを出す。</div></div>
       <div class="item gold"><div class="no">3</div><div class="t">実行・テスト</div><div class="d">Claudeが書いて動かし、失敗すれば自分で直す。結果を報告。</div></div>
     </div>
-    <p class="lead" style="margin-top:16px;font-size:18px"><span class="hl">人は変更計画を承認するだけ</span>。行単位のコードレビューはしなくてよい。正しさはテストと「戻せる復元点」で担保する——読む代わりに、検証させる。</p>
+    <p class="lead" style="margin-top:16px;font-size:18px">最初のうちは<span class="hl">変更を自分の目でも確認する</span>。テストと復元点（git）への信頼が育ったら、読む量を減らして検証に任せていく——「読む」から「検証させる」へ<b>段階的に</b>移るのが、公式が示す成熟の順序でもある。</p>
   </div>
   <div class="wm teal">委任</div>
   <div class="foot"><span>基本</span><span class="pg">06 / 12</span></div>
