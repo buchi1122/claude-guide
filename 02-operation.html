@@ -129,6 +129,8 @@ ul.plain b{color:var(--ink)}
 #dots i{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.28);cursor:pointer;transition:.2s}
 #dots i.on{background:var(--accent);width:22px;border-radius:4px}
 #hint{position:fixed;top:14px;right:18px;color:rgba(255,255,255,.5);font-size:12.5px;z-index:40}#hint b{color:#fff}
+#home{position:fixed;top:12px;left:18px;z-index:45;color:rgba(255,255,255,.55);font-size:12.5px;text-decoration:none;font-weight:800;letter-spacing:.06em;padding:5px 12px;border:1px solid rgba(255,255,255,.22);border-radius:16px;background:rgba(20,22,28,.35)}
+#home:hover{color:#fff;border-color:rgba(255,255,255,.45)}
 #note{position:fixed;left:50%;bottom:64px;transform:translateX(-50%);width:min(90vw,940px);background:#171a21;color:#e8eaef;border-radius:var(--r-m);padding:20px 26px;box-shadow:0 24px 60px rgba(0,0,0,.55);display:none;z-index:50;font-size:16px;line-height:1.75;border:1px solid #2a2e37}
 #note.show{display:block}
 #note .nh{color:var(--accent);font-weight:900;font-size:12px;letter-spacing:.12em;margin-bottom:8px;text-transform:uppercase}
@@ -205,6 +207,7 @@ ul.plain b{color:var(--ink)}
 </style>
 </head>
 <body>
+<a id="home" href="./">← 目次</a>
 <div id="hint">← → / 画面端クリック / スワイプ　·　<b>D</b> 詳細　·　<b>P</b> 発表者ノート　·　<b>F</b> 全画面</div>
 <div id="stage">
 

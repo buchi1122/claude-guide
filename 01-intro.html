@@ -106,6 +106,8 @@ ul.plain b{color:var(--ink)}
 #dots i{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.28);cursor:pointer;transition:.2s}
 #dots i.on{background:var(--accent);width:22px;border-radius:4px}
 #hint{position:fixed;top:14px;right:18px;color:rgba(255,255,255,.5);font-size:12.5px;z-index:40}#hint b{color:#fff}
+#home{position:fixed;top:12px;left:18px;z-index:45;color:rgba(255,255,255,.55);font-size:12.5px;text-decoration:none;font-weight:800;letter-spacing:.06em;padding:5px 12px;border:1px solid rgba(255,255,255,.22);border-radius:16px;background:rgba(20,22,28,.35)}
+#home:hover{color:#fff;border-color:rgba(255,255,255,.45)}
 .tag{display:inline-block;background:var(--surface2);border:1px solid var(--line);border-radius:6px;padding:2px 9px;font-size:14px;font-weight:800;color:var(--accent-d);font-family:var(--serif)}
 
 /* watermark / 低画面ガード */
@@ -201,6 +203,7 @@ ul.plain b{color:var(--ink)}
 </style>
 </head>
 <body>
+<a id="home" href="./">← 目次</a>
 <div id="hint">← → / 画面端クリック / スワイプ　·　<b>D</b> 詳細　·　<b>P</b> 発表者ノート　·　<b>F</b> 全画面</div>
 <div id="stage">
 
