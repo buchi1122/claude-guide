@@ -108,6 +108,22 @@ ul.plain b{color:var(--ink)}
 #hint{position:fixed;top:14px;right:18px;color:rgba(255,255,255,.5);font-size:12.5px;z-index:40}#hint b{color:#fff}
 .tag{display:inline-block;background:var(--surface2);border:1px solid var(--line);border-radius:6px;padding:2px 9px;font-size:14px;font-weight:800;color:var(--accent-d);font-family:var(--mono)}
 
+/* watermark / 現場の記録 / 低画面ガード */
+.wm{position:absolute;right:52px;bottom:66px;font-family:var(--serif);font-weight:900;font-size:150px;line-height:1;color:rgba(201,96,63,.07);letter-spacing:.02em;pointer-events:none;user-select:none;z-index:0}
+.wm.teal{color:rgba(31,122,112,.07)}.wm.gold{color:rgba(201,147,38,.09)}.wm.ink{color:rgba(32,36,44,.05)}
+.pad{position:relative;z-index:1}
+.scar{margin-top:auto;background:#22262f;border-radius:12px;padding:16px 24px;display:flex;gap:18px;align-items:baseline;position:relative;z-index:1}
+.scar .sl{font-family:var(--serif);color:#e2a184;font-weight:900;font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;flex:0 0 auto;white-space:nowrap}
+.scar .sb{color:#c9cdd6;font-size:15px;line-height:1.72}
+.scar .sb b{color:#fff;font-weight:700}
+@media(min-width:821px) and (max-height:730px){
+  .slide{height:96vh}
+  .pad{overflow-y:auto;padding:40px 56px 76px}
+  h1{font-size:50px}h2{font-size:33px}
+  .wm{display:none}
+}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
 /* nav */
 .navzone{position:fixed;top:0;bottom:0;width:20%;z-index:30;cursor:pointer}
 .navzone.prev{left:0}.navzone.next{right:0}
@@ -129,6 +145,8 @@ ul.plain b{color:var(--ink)}
   .pad{padding:56px 20px 84px}
   h1{font-size:34px!important}h2{font-size:26px!important}.lead{font-size:16px!important}
   .setnum{display:none}
+  .wm{display:none}
+  .scar{flex-direction:column;gap:6px;padding:14px 18px}
   .grid,.reqs{grid-template-columns:1fr!important}
   .g2,.g3,.g2x2{grid-template-columns:1fr!important;grid-template-rows:auto!important}
   .step{flex-direction:column;gap:18px}.step .left{flex:none}.term{min-height:220px}
@@ -168,8 +186,9 @@ ul.plain b{color:var(--ink)}
         <tr><th>使う人</th><td>非エンジニア</td><td>開発する人</td></tr>
       </tbody>
     </table>
-    <p class="lead" style="margin-top:16px;font-size:18px">目安：<span class="hl">gitで管理する"開発"ならCode、それ以外はCowork</span>。</p>
+    <p class="lead" style="margin-top:16px;font-size:18px">目安：<span class="hl">gitで管理する"開発"ならCode、それ以外はCowork</span>。同じ記憶の家（Vault）を両方から共有できるので、乗り換えでなく使い分けになる。</p>
   </div>
+  <div class="wm ink">境界</div>
   <div class="foot"><span>違い</span><span class="pg">02 / 12</span></div>
 </section>
 
@@ -184,7 +203,9 @@ ul.plain b{color:var(--ink)}
       <div class="req"><div class="rn">3</div><div><div class="rt">Claudeアカウント（有料）</div><div class="rd">普段の有料プランでそのまま使える。APIキーでも可。</div></div></div>
       <div class="req"><div class="rn">4</div><div><div class="rt">作業するフォルダ</div><div class="rd">コードを置くプロジェクトの場所。無ければ空フォルダ1つでOK。</div></div></div>
     </div>
+    <p class="lead" style="margin-top:20px;font-size:17.5px">ハードルはNode.jsだけ。<span class="hl">つまずいたらエラー文をそのままClaudeに貼ればいい</span>——導入の途中からもう手伝わせられる。</p>
   </div>
+  <div class="wm ink">支度</div>
   <div class="foot"><span>準備</span><span class="pg">03 / 12</span></div>
 </section>
 
@@ -208,6 +229,7 @@ ul.plain b{color:var(--ink)}
       </div>
     </div>
   </div>
+  <div class="wm">導入</div>
   <div class="foot"><span>インストール</span><span class="pg">04 / 12</span></div>
 </section>
 
@@ -231,6 +253,7 @@ ul.plain b{color:var(--ink)}
       </div>
     </div>
   </div>
+  <div class="wm">起動</div>
   <div class="foot"><span>起動</span><span class="pg">05 / 12</span></div>
 </section>
 
@@ -244,8 +267,9 @@ ul.plain b{color:var(--ink)}
       <div class="item teal"><div class="no">2</div><div class="t">変更案を承認</div><div class="d">Claudeが計画と差分を提示。人はそれを見てOKを出すだけ。</div></div>
       <div class="item gold"><div class="no">3</div><div class="t">実行・テスト</div><div class="d">Claudeが書いて動かし、失敗すれば自分で直す。結果を報告。</div></div>
     </div>
-    <p class="lead" style="margin-top:16px;font-size:18px"><span class="hl">人は変更計画を承認するだけ</span>。行単位のコードレビューはしなくてよい。</p>
+    <p class="lead" style="margin-top:16px;font-size:18px"><span class="hl">人は変更計画を承認するだけ</span>。行単位のコードレビューはしなくてよい。正しさはテストと「戻せる復元点」で担保する——読む代わりに、検証させる。</p>
   </div>
+  <div class="wm teal">委任</div>
   <div class="foot"><span>基本</span><span class="pg">06 / 12</span></div>
 </section>
 
@@ -263,12 +287,14 @@ ul.plain b{color:var(--ink)}
           <li><span class="b">c</span>迷ったら <b>No</b> で意図を聞き返す</li>
         </div>
         <div class="trip"><div class="ct">注意</div>「don't ask again for: <span class="mono">brew install *</span>」のような<b>広い包括許可</b>は、以後すべて無確認になる。選ばない。</div>
+        <div class="scar" style="margin-top:12px"><span class="sl">現場の記録</span><span class="sb">「キーチェーンの認証情報を表示して確認します」という提案が来たことがある。<b>読むだけに見えるが、出力は会話ログに残る</b>。Noと答えて「表示せずそのままpushを試して」と返した——確認プロンプトは、こういう時のためにある。</span></div>
       </div>
       <div class="term"><div class="bar"><i></i><i></i><i></i><span class="tt">claude</span></div>
         <div class="body"><span class="o">Bash command</span><br><span class="c">curl -LsSf https://astral.sh/uv/install.sh | sh</span><br><br><span class="o">Do you want to proceed?</span><br><span class="g">› 1. Yes</span><br><span class="o">&nbsp;&nbsp;2. Yes, and don't ask again for: sh commands</span><br><span class="o">&nbsp;&nbsp;3. No</span></div>
       </div>
     </div>
   </div>
+  <div class="wm">承認</div>
   <div class="foot"><span>承認</span><span class="pg">07 / 12</span></div>
 </section>
 
@@ -293,6 +319,7 @@ ul.plain b{color:var(--ink)}
       </div>
     </div>
   </div>
+  <div class="wm gold">契約</div>
   <div class="foot"><span>CLAUDE.md</span><span class="pg">08 / 12</span></div>
 </section>
 
@@ -309,6 +336,7 @@ ul.plain b{color:var(--ink)}
     </div>
     <p class="lead" style="margin-top:16px;font-size:17px">＋ <span class="tag">/model</span> モデル切替（既定として保存）　<span class="tag">/mcp</span> 接続の確認　<span class="tag">/terminal-setup</span> Option+Enterで改行。</p>
   </div>
+  <div class="wm ink">九割</div>
   <div class="foot"><span>コマンド</span><span class="pg">09 / 12</span></div>
 </section>
 
@@ -333,6 +361,7 @@ ul.plain b{color:var(--ink)}
       </div>
     </div>
   </div>
+  <div class="wm teal">拡張</div>
   <div class="foot"><span>MCP</span><span class="pg">10 / 12</span></div>
 </section>
 
@@ -348,7 +377,9 @@ ul.plain b{color:var(--ink)}
     </ul>
     <hr class="rule">
     <p class="lead" style="font-size:18px">仕組みで守るなら <span class="tag">hooks</span> ── 例：<span class="mono" style="font-size:16px">git reset --hard</span> 等の危険コマンドを機械的にブロックする"強制執行層"。この仕組み自体もClaudeに作らせられる。</p>
+    <div class="scar"><span class="sl">現場の記録</span><span class="sb">push用の認証をコマンドラインに入れず、<b>コミットまでAI・pushは自分の1クリック</b>という分担に落ち着いた。不便の産物だが、結果的に「本番反映の直前に人間の関門が1つ残る」——安全設計として理にかなっていたので、そのまま運用にした。</span></div>
   </div>
+  <div class="wm">安全</div>
   <div class="foot"><span>安全</span><span class="pg">11 / 12</span></div>
 </section>
 

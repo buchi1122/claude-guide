@@ -49,7 +49,7 @@ h2{font-family:var(--serif);font-size:41px;line-height:1.2;font-weight:800;color
 /* editorial numbered cells */
 .grid{display:grid;gap:1px;background:var(--hair);border:1px solid var(--hair);border-radius:var(--r-m);overflow:hidden;margin-top:var(--sp-3);flex:1;min-height:0}
 .g2{grid-template-columns:1fr 1fr}.g3{grid-template-columns:1fr 1fr 1fr}.g2x2{grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr}
-.item{background:var(--surface);padding:26px 30px;display:flex;flex-direction:column;min-height:0;position:relative}
+.item{background:var(--surface);padding:26px 30px;display:flex;flex-direction:column;justify-content:center;min-height:0;position:relative}
 .item.tint{background:var(--surface2)}
 .item.dark{background:#22262f;color:#eceef2}
 .item .no{font-family:var(--serif);font-size:34px;font-weight:900;line-height:1;color:var(--accent);margin-bottom:14px;letter-spacing:.02em}
@@ -134,6 +134,26 @@ ul.plain b{color:var(--ink)}
 #note .nh{color:var(--accent);font-weight:900;font-size:12px;letter-spacing:.12em;margin-bottom:8px;text-transform:uppercase}
 .tag{display:inline-block;background:var(--surface2);border:1px solid var(--line);border-radius:6px;padding:2px 8px;font-size:13.5px;font-weight:700;color:var(--accent-d);font-family:var(--serif)}
 
+/* watermark（内容スライドの余白を編集的に埋める） */
+.wm{position:absolute;right:52px;bottom:66px;font-family:var(--serif);font-weight:900;font-size:150px;line-height:1;color:rgba(201,96,63,.07);letter-spacing:.02em;pointer-events:none;user-select:none;z-index:0}
+.wm.teal{color:rgba(31,122,112,.07)}.wm.gold{color:rgba(201,147,38,.09)}.wm.ink{color:rgba(32,36,44,.05)}
+.pad{position:relative;z-index:1}
+
+/* 現場の記録（本人の実つまずきと学び） */
+.scar{margin-top:auto;background:#22262f;border-radius:12px;padding:16px 24px;display:flex;gap:18px;align-items:baseline;position:relative;z-index:1}
+.scar .sl{font-family:var(--serif);color:#e2a184;font-weight:900;font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;flex:0 0 auto;white-space:nowrap}
+.scar .sb{color:#c9cdd6;font-size:15px;line-height:1.72}
+.scar .sb b{color:#fff;font-weight:700}
+
+/* 低い画面での崩れ防止（かぶり根絶: 収まらない時は内部スクロール） */
+@media(min-width:821px) and (max-height:730px){
+  .slide{height:96vh}
+  .pad{overflow-y:auto;padding:40px 56px 76px}
+  h1{font-size:50px}h2{font-size:33px}
+  .wm{display:none}
+}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
 /* ===== navigation: click zones + arrow buttons ===== */
 .navzone{position:fixed;top:0;bottom:0;width:20%;z-index:30;cursor:pointer}
 .navzone.prev{left:0}.navzone.next{right:0}
@@ -150,6 +170,8 @@ ul.plain b{color:var(--ink)}
   h1{font-size:34px!important}h2{font-size:26px!important}
   .lead{font-size:16px!important}
   .setnum{display:none}
+  .wm{display:none}
+  .scar{flex-direction:column;gap:6px;padding:14px 18px}
   .grid,.two,.det,.ds,.ba,.reqs,.dnote{grid-template-columns:1fr!important}
   .g2,.g3,.g2x2,.g-map,.g-2x2,.g-3{grid-template-columns:1fr!important;grid-template-rows:auto!important}
   .span2{grid-column:auto!important}
@@ -219,7 +241,9 @@ ul.plain b{color:var(--ink)}
       </div>
     </div>
     <p class="lead" style="margin-top:var(--sp-3)">効くのは細かいコツより、<span class="hl">あとからAIに渡せる文脈がどれだけ残っているか</span>。</p>
+    <div class="scar"><span class="sl">現場の記録</span><span class="sb">仕組み化後、新セッションの初手は<b>「引き継ぎ読んで」の一言</b>で済むようになった。ただし最初から動いたわけではない——指示を3箇所に分けて<b>同期事故</b>を起こし、「正本は1つ」に設計し直してからだ。</span></div>
   </div>
+  <div class="wm">文脈</div>
   <div class="foot"><span>Why</span><span class="pg">02 / 12</span></div>
 </section>
 
@@ -234,7 +258,9 @@ ul.plain b{color:var(--ink)}
       <div class="band l3"><div class="bno">03</div><div class="bt">指示</div><div class="bd">カスタム指示＋モード。AIの性格を固定する。</div></div>
       <div class="band l4"><div class="bno">04</div><div class="bt">自動化</div><div class="bd">引き継ぎで会話を跨ぎ、定期タスクで自動で見張る。手間を肩代わり。</div></div>
     </div>
+    <p class="lead" style="margin-top:var(--sp-3);font-size:18px">下の層ほど先に効く。<span class="hl">まず02の「記憶」だけでも、明日の会話が変わる</span>。04は慣れてからでいい。</p>
   </div>
+  <div class="wm ink">層</div>
   <div class="foot"><span>全体像</span><span class="pg">03 / 12</span></div>
 </section>
 
@@ -250,13 +276,18 @@ ul.plain b{color:var(--ink)}
       <span class="chip">固有名詞・数値は<b>検索してから</b></span>
       <span class="chip"><b>結論から</b>先に</span>
       <span class="chip">間違いは<b>取り違え→正→再発防止</b></span>
+      <span class="chip"><b>称賛・空相槌</b>は書かない</span>
+      <span class="chip">誤った前提には<b>迎合しない</b></span>
     </div>
+    <p class="lead" style="margin-top:var(--sp-2);font-size:17.5px">コツは「してほしいこと」より<span class="hl">「してほしくないこと」を書く</span>こと。AIの癖（お世辞・曖昧な断定・長い前置き）は、禁止と言われない限り出続ける。</p>
     <div class="teach">
       <div class="tblock s"><div class="tl">見せる画面</div><div class="tbody">設定 → カスタム指示の編集画面</div></div>
       <div class="tblock a"><div class="tl">あなたのセリフ</div><div class="tbody say">「ここに"どう振る舞ってほしいか"を書く。俺のはお世辞禁止・推測は推測と言え・検索してから答えろ。これで毎回頼まなくて済む」</div></div>
       <div class="tblock d"><div class="tl">友人の操作</div><div class="tbody">まず3行：簡潔に／推測は明示／結論から</div></div>
     </div>
+    <div class="scar"><span class="sl">現場の記録</span><span class="sb">指示を「設定3箇所＋写し」に分けて運用したら、<b>1日で貼り替え4回・食い違い事故1回</b>。以来ルールは「<b>正本は1つ、写しは読み込み直し専用</b>」。増やすより、置き場を減らす方が効いた。</span></div>
   </div>
+  <div class="wm">指示</div>
   <div class="foot"><span>指示</span><span class="pg">04 / 12</span></div>
 </section>
 
@@ -266,8 +297,8 @@ ul.plain b{color:var(--ink)}
     <div class="kicker">仕組み ── 記憶（層02）</div>
     <h2>Obsidian Vault ＝ 文脈の家</h2>
     <div class="grid g2">
-      <div class="item tint"><div class="no">A</div><div class="t">プロジェクトで分ける</div><div class="d">仕事・趣味・創作など領域ごとにフォルダ。各フォルダに「運用ルール」と「目次」を置くと、AIが作業前に読んで前提を掴む。</div></div>
-      <div class="item tint"><div class="no">B</div><div class="t">機微は private に隔離</div><div class="d">お金・取引・個人的なことは各プロジェクトの <span class="tag">private/</span> へ。共有・公開の単位から自動で外れ、AIのメモリにも残さない。</div></div>
+      <div class="item tint"><div class="no">A</div><div class="t">プロジェクトで分ける</div><div class="d">仕事・趣味・創作など領域ごとにフォルダ。各フォルダに「運用ルール」と「目次」を置くと、AIが作業前に読んで前提を掴む。<br><br><b>置くのは2枚だけ</b>——決まりを書く「運用ルール」と、今どこに何があるかの「目次」。それ以上は増やさない。</div></div>
+      <div class="item tint"><div class="no">B</div><div class="t">機微は private に隔離</div><div class="d">お金・取引・個人的なことは各プロジェクトの <span class="tag">private/</span> へ。共有・公開の単位から自動で外れ、AIのメモリにも残さない。<br><br><b>判断でなく構造で守る</b>のがポイント。「気をつける」は破られるが、フォルダの壁は破られない。閲覧パスワードも併用できる。</div></div>
     </div>
     <hr class="rule" style="margin:18px 0 0">
     <p class="lead" style="margin-top:16px;font-size:19px"><span class="hl">人が読むノートと、AIが読む記憶は設計が違う。</span>だから分けておくと、どっちも軽くなる。</p>
@@ -277,6 +308,7 @@ ul.plain b{color:var(--ink)}
       <div class="tblock d"><div class="tl">友人の操作</div><div class="tbody">1フォルダ＋「運用ルール.md」1枚から</div></div>
     </div>
   </div>
+  <div class="wm teal">記憶</div>
   <div class="foot"><span>記憶</span><span class="pg">05 / 12</span></div>
 </section>
 
@@ -295,9 +327,9 @@ ul.plain b{color:var(--ink)}
       <span class="node">続きから</span>
     </div>
     <div class="grid g3" style="margin-top:var(--sp-2)">
-      <div class="item"><div class="no">1</div><div class="t">自動メモリ</div><div class="d">「これ覚えて」で、会話を跨いで使う短いメモを残す。誰か・好み・進行中の案件。</div></div>
-      <div class="item teal"><div class="no">2</div><div class="t">引き継ぎログ</div><div class="d"><span class="tag">保存</span>で決定・前提・未決を記録。<span class="tag">読んで</span>で現在地から再開。</div></div>
-      <div class="item gold"><div class="no">3</div><div class="t">持ち出し</div><div class="d">制限中やスマホの時は他AIに貼れる要約を出し、戻ったら差分を回収。</div></div>
+      <div class="item"><div class="no">1</div><div class="t">自動メモリ</div><div class="d">「これ覚えて」で、会話を跨いで使う短いメモを残す。誰か・好み・進行中の案件。<br><br>例:「この名前の表記はこれで統一して」——一度覚えれば、以後どの会話でも効く。</div></div>
+      <div class="item teal"><div class="no">2</div><div class="t">引き継ぎログ</div><div class="d"><span class="tag">保存</span>で決定・前提・未決を記録。<span class="tag">読んで</span>で現在地から再開。<br><br>正本に反映した分は消す——ログは「まだ反映していない差分」だけの軽い置き場に保つ。</div></div>
+      <div class="item gold"><div class="no">3</div><div class="t">持ち出し</div><div class="d">制限中やスマホの時は他AIに貼れる要約を出し、戻ったら差分を回収。<br><br>行き先の使い分け: 容量制限から逃げる時はGPT、スマホだけの時はClaude Chat。</div></div>
     </div>
     <div class="teach">
       <div class="tblock s"><div class="tl">見せる画面</div><div class="tbody">「引き継ぎ保存」でログに追記</div></div>
@@ -305,6 +337,7 @@ ul.plain b{color:var(--ink)}
       <div class="tblock d"><div class="tl">友人の操作</div><div class="tbody">今日の会話の最後に「引き継ぎ保存」</div></div>
     </div>
   </div>
+  <div class="wm teal">継承</div>
   <div class="foot"><span>記憶</span><span class="pg">06 / 12</span></div>
 </section>
 
@@ -314,12 +347,13 @@ ul.plain b{color:var(--ink)}
     <div class="kicker">仕組み ── モード（層03）</div>
     <h2>用途で、"人格"を切り替える</h2>
     <div class="grid g3">
-      <div class="item teal"><div class="no">考</div><div class="t">考察モード</div><div class="d">作品・人物・構造を一緒に見る時。両方の読み筋を残し、決め手を作中事実で示す。相槌でなく共同観察者に。</div></div>
-      <div class="item"><div class="no">創</div><div class="t">創作モード</div><div class="d">物語を書く時。検索や簡潔の縛りを外し、世界観・文体を最優先。叩き台でなく初回から本気で。</div></div>
-      <div class="item gold"><div class="no">常</div><div class="t">通常モード</div><div class="d">既定。正確さ・簡潔さ・検索照合。仕事や調べ物はこれ。</div></div>
+      <div class="item teal"><div class="no">考</div><div class="t">考察モード</div><div class="d">作品・人物・構造を一緒に見る時。両方の読み筋を残し、決め手を作中事実で示す。相槌でなく共同観察者に。<br><br><b>入る:</b>「考察モードで」<br><b>効果:</b> 評価や結論の押しつけが消え、一緒に読む相手になる。</div></div>
+      <div class="item"><div class="no">創</div><div class="t">創作モード</div><div class="d">物語を書く時。検索や簡潔の縛りを外し、世界観・文体を最優先。叩き台でなく初回から本気で。<br><br><b>入る:</b>「創作モードで」<br><b>効果:</b> 事実確認の割り込みが止まり、文体が世界観に寄る。</div></div>
+      <div class="item gold"><div class="no">常</div><div class="t">通常モード</div><div class="d">既定。正確さ・簡潔さ・検索照合。仕事や調べ物はこれ。<br><br><b>戻る:</b>「通常モードに戻して」<br><b>設計:</b> 安全と機密のルールはどのモードでも外れない。</div></div>
     </div>
-    <p class="lead" style="margin-top:var(--sp-3)">切り替えは<span class="hl">「考察モード」と宣言するだけ</span>。中身は設定に書いてある。</p>
+    <p class="lead" style="margin-top:var(--sp-3)">切り替えは<span class="hl">宣言するだけ。中身は設定に書いてあるから</span>、会話ごとに口調やルールを説明し直す必要がない。用途に合わない人格のまま使うのが、一番答えが噛み合わない。</p>
   </div>
+  <div class="wm">人格</div>
   <div class="foot"><span>モード</span><span class="pg">07 / 12</span></div>
 </section>
 
@@ -329,12 +363,13 @@ ul.plain b{color:var(--ink)}
     <div class="kicker">実用例</div>
     <h2>実際に、こう使っている</h2>
     <div class="grid g2x2">
-      <div class="item"><div class="mark">ものづくり</div><div class="no">01</div><div class="t">動くプロトタイプ</div><div class="d">アプリの画面イメージから、ブラウザで触れる試作を対話で生成。コードを書かずに形にする。</div></div>
-      <div class="item"><div class="mark">情報整理</div><div class="no">02</div><div class="t">情報を資産に変える</div><div class="d">動画リストの概要欄・字幕を読ませて台帳化。ブックマークの山を、検索できる資産に。</div></div>
-      <div class="item"><div class="mark">自動化</div><div class="no">03</div><div class="t">自動の見張り番</div><div class="d">毎月1回、記憶の家を自動点検。機微の漏れや古くなった記述を報告する定期タスク。</div></div>
-      <div class="item"><div class="mark">使い分け</div><div class="no">04</div><div class="t">他のAIと併用</div><div class="d">安いAIで壁打ち→決まった内容だけClaudeに渡して記憶に反映。役割で使い分ける。</div></div>
+      <div class="item"><div class="mark">ものづくり</div><div class="no">01</div><div class="t">動くプロトタイプ</div><div class="d">アプリの画面イメージから、ブラウザで触れる試作を対話で生成。コードを書かずに形にする。<b>絵が1枚あれば、その日のうちに触れるものになる</b>——このスライド自体も同じ作り方。</div></div>
+      <div class="item"><div class="mark">情報整理</div><div class="no">02</div><div class="t">情報を資産に変える</div><div class="d">動画リストの概要欄・字幕を読ませて台帳化。ブックマークの山が、<b>「あれどこだっけ」に検索で答える資産</b>に変わる。貯めるだけの情報は、無いのと同じ。</div></div>
+      <div class="item"><div class="mark">自動化</div><div class="no">03</div><div class="t">自動の見張り番</div><div class="d">定期タスクで記憶の家を自動点検——機微の漏れ・古くなった記述・リンク切れを報告させる。<b>人が忘れる種類の点検こそ、AIの定期実行に向く</b>。</div></div>
+      <div class="item"><div class="mark">使い分け</div><div class="no">04</div><div class="t">他のAIと併用</div><div class="d">安いAIで壁打ち→決まった内容だけClaudeに渡して記憶に反映。<b>成果の貯め先を1箇所に決める</b>のがコツで、どのAIと話しても文脈が散らばらない。</div></div>
     </div>
   </div>
+  <div class="wm gold">実例</div>
   <div class="foot"><span>実用例</span><span class="pg">08 / 12</span></div>
 </section>
 
@@ -344,12 +379,13 @@ ul.plain b{color:var(--ink)}
     <div class="kicker">対面での進め方</div>
     <h2>教えるときの順番</h2>
     <div class="grid g2x2">
-      <div class="item gold"><div class="no">01</div><div class="t">限界を体感させる</div><div class="d">友人にいつもの使い方をさせ、「昨日の続きは？」で詰まらせる。ここで必要性が伝わる。</div></div>
-      <div class="item teal"><div class="no">02</div><div class="t">指示を3行だけ書かせる</div><div class="d">簡潔に／推測は明示／結論から。前後で答えを比べて効果を実感させる。</div></div>
-      <div class="item"><div class="no">03</div><div class="t">1フォルダ作る</div><div class="d">Obsidianを入れ、運用ルール1枚＋今の用事のメモ1枚。</div></div>
-      <div class="item dark"><div class="no">04</div><div class="t">「引き継ぎ保存」で締める</div><div class="d">次回「引き継ぎ読んで」で戻れると約束して終わる。</div></div>
+      <div class="item gold"><div class="no">01</div><div class="t">限界を体感させる<span style="float:right;font-size:14px;color:var(--sub);font-weight:800">〜5分</span></div><div class="d">友人にいつもの使い方をさせ、「昨日の続きは？」で詰まらせる。ここで必要性が伝わる。<b>先に道具を見せない</b>——困ってから渡す方が定着する。</div></div>
+      <div class="item teal"><div class="no">02</div><div class="t">指示を3行だけ書かせる<span style="float:right;font-size:14px;color:var(--sub);font-weight:800">〜10分</span></div><div class="d">簡潔に／推測は明示／結論から。<b>書く前と後で同じ質問をして</b>、答えの変化を隣で見せる。効果の実感が一番の推進力。</div></div>
+      <div class="item"><div class="no">03</div><div class="t">1フォルダ作る<span style="float:right;font-size:14px;color:var(--sub);font-weight:800">〜10分</span></div><div class="d">Obsidianを入れ、運用ルール1枚＋今の用事のメモ1枚。<b>相手の実際の用事</b>（旅行計画・仕事のメモ）を素材にする。デモ用サンプルでは残らない。</div></div>
+      <div class="item dark"><div class="no">04</div><div class="t">「引き継ぎ保存」で締める<span style="float:right;font-size:14px;color:#8a8f99;font-weight:800">〜5分</span></div><div class="d">次回「引き継ぎ読んで」で戻れると約束して終わる。<b>翌日に一度LINEで「読んでって言ってみて」と送る</b>——最初の再開体験までがセットアップ。</div></div>
     </div>
   </div>
+  <div class="wm ink">順番</div>
   <div class="foot"><span>進め方</span><span class="pg">09 / 12</span></div>
 </section>
 
@@ -366,7 +402,9 @@ ul.plain b{color:var(--ink)}
     <p class="lead" style="margin-top:var(--sp-3)">全部一気にやらない。<span class="hl">増やすほど重くなる</span>から、要るものだけ足していく。</p>
     <hr class="rule">
     <p class="lead" style="font-size:19px;color:#5a3d12"><b class="serif">締めの一言：</b>「仕組みは目的じゃない。何かを作る・進めるための土台。まず1個、今の用事をこれで回してみて」</p>
+    <div class="scar"><span class="sl">現場の記録</span><span class="sb">最小スタートを勧めるのは、自分が<b>全部盛りで始めて重くした</b>から。ルールも記憶も、増やすほどAIが毎回読む荷物になる。月1の点検で「消す」を回し始めてから、やっと軽くなった。<b>足し算より引き算が効く</b>。</span></div>
   </div>
+  <div class="wm">引算</div>
   <div class="foot"><span>今日やること</span><span class="pg">10 / 12</span></div>
 </section>
 

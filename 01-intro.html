@@ -108,6 +108,18 @@ ul.plain b{color:var(--ink)}
 #hint{position:fixed;top:14px;right:18px;color:rgba(255,255,255,.5);font-size:12.5px;z-index:40}#hint b{color:#fff}
 .tag{display:inline-block;background:var(--surface2);border:1px solid var(--line);border-radius:6px;padding:2px 9px;font-size:14px;font-weight:800;color:var(--accent-d);font-family:var(--serif)}
 
+/* watermark / 低画面ガード */
+.wm{position:absolute;right:52px;bottom:66px;font-family:var(--serif);font-weight:900;font-size:150px;line-height:1;color:rgba(201,96,63,.07);letter-spacing:.02em;pointer-events:none;user-select:none;z-index:0}
+.wm.teal{color:rgba(31,122,112,.07)}.wm.gold{color:rgba(201,147,38,.09)}.wm.ink{color:rgba(32,36,44,.05)}
+.pad{position:relative;z-index:1}
+@media(min-width:821px) and (max-height:730px){
+  .slide{height:96vh}
+  .pad{overflow-y:auto;padding:40px 56px 76px}
+  h1{font-size:50px}h2{font-size:33px}
+  .wm{display:none}
+}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
 /* concept: agent (two-col) */
 .two{display:grid;grid-template-columns:1fr 1fr;gap:var(--sp-3);margin-top:var(--sp-3)}
 .two .box{border-radius:var(--r-m);padding:26px 30px;display:flex;flex-direction:column}
@@ -122,7 +134,7 @@ ul.plain b{color:var(--ink)}
 /* concept: three-entry map */
 .grid{display:grid;gap:1px;background:var(--hair);border:1px solid var(--hair);border-radius:var(--r-m);overflow:hidden;margin-top:var(--sp-3);flex:1;min-height:0}
 .g3{grid-template-columns:1fr 1fr 1fr}
-.item{background:var(--surface);padding:24px 26px;display:flex;flex-direction:column}
+.item{background:var(--surface);padding:24px 26px;display:flex;flex-direction:column;justify-content:center}
 .item .no{font-family:var(--serif);font-size:28px;font-weight:900;color:var(--accent);margin-bottom:10px}
 .item.teal .no{color:var(--teal-d)}.item.gold .no{color:var(--gold-d)}
 .item .role{font-size:12.5px;font-weight:800;letter-spacing:.06em;color:var(--accent-d);margin-bottom:9px;text-transform:uppercase}
@@ -156,6 +168,7 @@ ul.plain b{color:var(--ink)}
   h1{font-size:34px!important}h2{font-size:26px!important}
   .lead{font-size:16px!important}
   .setnum{display:none}
+  .wm{display:none}
   .grid,.two,.det,.ds,.ba,.reqs,.dnote{grid-template-columns:1fr!important}
   .g2,.g3,.g2x2,.g-map,.g-2x2,.g-3{grid-template-columns:1fr!important;grid-template-rows:auto!important}
   .span2{grid-column:auto!important}
@@ -210,11 +223,11 @@ ul.plain b{color:var(--ink)}
     <div class="two">
       <div class="box a">
         <div class="lab">アシスタント（今までのAI）</div>
-        <div class="desc">質問すると、答えを返す。1問1答。調べたり書いたりを<b>手伝う</b>が、自分では手を動かさない。人がずっと横で操作する。</div>
+        <div class="desc">質問すると、答えを返す。1問1答。調べたり書いたりを<b>手伝う</b>が、自分では手を動かさない。人がずっと横で操作する。<br><br>例：「京都のおすすめ教えて」→ 候補の文章が返って、終わり。</div>
       </div>
       <div class="box b">
         <div class="lab">エージェント</div>
-        <div class="desc">ゴールを渡すと、自分で段取りして<b>やり遂げる</b>。道具を使い、手を動かし、確認まで。人は結果を受け取る。</div>
+        <div class="desc">ゴールを渡すと、自分で段取りして<b>やり遂げる</b>。道具を使い、手を動かし、確認まで。人は結果を受け取る。<br><br>例：「京都2泊の旅程表を作って」→ 調べて・組んで・表に仕上げて渡してくる。</div>
         <div class="flow">
           <span class="n">計画</span><svg width="22" height="13" viewBox="0 0 22 13" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 6.5h16M14 3l5 3.5-5 3.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
           <span class="n">道具を使う</span><svg width="22" height="13" viewBox="0 0 22 13" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 6.5h16M14 3l5 3.5-5 3.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -225,6 +238,7 @@ ul.plain b{color:var(--ink)}
     </div>
     <p class="lead" style="margin-top:18px;font-size:19px"><span class="hl">Chatはアシスタント寄り、Cowork・Code・Dispatchはエージェント。</span></p>
   </div>
+  <div class="wm teal">自走</div>
   <div class="foot"><span>エージェントとは</span><span class="pg">02 / 11</span></div>
 </section>
 
@@ -234,12 +248,13 @@ ul.plain b{color:var(--ink)}
     <div class="kicker">3つの入口</div>
     <h2>同じClaude、入口が3つ</h2>
     <div class="grid g3">
-      <div class="item"><div class="no">Chat</div><div class="role">アシスタント</div><div class="t">相談する</div><div class="d">会話で考える・書く・調べる。人が毎回見て進める。一番なじみやすい。</div></div>
-      <div class="item teal"><div class="no">Cowork</div><div class="role">エージェント</div><div class="t">作業させる</div><div class="d">フォルダを渡すと段取りして成果物まで。ターミナル不要。非エンジニア向け。</div></div>
-      <div class="item gold"><div class="no">Code</div><div class="role">エージェント</div><div class="t">開発させる</div><div class="d">ターミナルでコードを読み書き。作る・直す・テストまで。エンジニア向け（Part 03で詳しく）。</div></div>
+      <div class="item"><div class="no">Chat</div><div class="role">アシスタント</div><div class="t">相談する</div><div class="d">会話で考える・書く・調べる。人が毎回見て進める。一番なじみやすい。<br><br>例：文章の下書き、調べ物、悩み相談、翻訳。</div></div>
+      <div class="item teal"><div class="no">Cowork</div><div class="role">エージェント</div><div class="t">作業させる</div><div class="d">フォルダを渡すと段取りして成果物まで。ターミナル不要。非エンジニア向け。<br><br>例：資料づくり、ファイル整理、このスライドの制作。</div></div>
+      <div class="item gold"><div class="no">Code</div><div class="role">エージェント</div><div class="t">開発させる</div><div class="d">ターミナルでコードを読み書き。作る・直す・テストまで。エンジニア向け（Part 03で詳しく）。<br><br>例：アプリ開発、サイト公開、大量ファイルの一括処理。</div></div>
     </div>
     <p class="lead" style="margin-top:16px;font-size:18px"><b class="serif">＋ Dispatch（ベータ）</b> ── スマホから投げて、デスクトップの裏で自動実行。戻ると成果物ができている。</p>
   </div>
+  <div class="wm ink">入口</div>
   <div class="foot"><span>3つの入口</span><span class="pg">03 / 11</span></div>
 </section>
 
@@ -262,6 +277,7 @@ ul.plain b{color:var(--ink)}
     </table>
     <p class="lead" style="margin-top:16px;font-size:18px">まずは <span class="hl">Chatで相談、作業させたくなったらCowork</span>。この導入ではその土台を入れる。</p>
   </div>
+  <div class="wm ink">早見</div>
   <div class="foot"><span>早見表</span><span class="pg">04 / 11</span></div>
 </section>
 
@@ -278,6 +294,7 @@ ul.plain b{color:var(--ink)}
     </div>
     <p class="lead" style="margin-top:20px;font-size:18px">支払いに抵抗があれば、まず無料でサインインして触り、必要になってからProに上げてもいい。</p>
   </div>
+  <div class="wm gold">支度</div>
   <div class="foot"><span>準備</span><span class="pg">05 / 11</span></div>
 </section>
 
@@ -306,6 +323,7 @@ ul.plain b{color:var(--ink)}
       </div>
     </div>
   </div>
+  <div class="wm">公式</div>
   <div class="foot"><span>ダウンロード</span><span class="pg">06 / 11</span></div>
 </section>
 
@@ -336,6 +354,7 @@ ul.plain b{color:var(--ink)}
       </div>
     </div>
   </div>
+  <div class="wm">設置</div>
   <div class="foot"><span>インストール</span><span class="pg">07 / 11</span></div>
 </section>
 
@@ -365,6 +384,7 @@ ul.plain b{color:var(--ink)}
       </div>
     </div>
   </div>
+  <div class="wm teal">同一</div>
   <div class="foot"><span>サインイン</span><span class="pg">08 / 11</span></div>
 </section>
 
@@ -395,6 +415,7 @@ ul.plain b{color:var(--ink)}
       </div>
     </div>
   </div>
+  <div class="wm gold">段階</div>
   <div class="foot"><span>プラン</span><span class="pg">09 / 11</span></div>
 </section>
 
@@ -423,6 +444,7 @@ ul.plain b{color:var(--ink)}
       </div>
     </div>
   </div>
+  <div class="wm">初回</div>
   <div class="foot"><span>初回会話</span><span class="pg">10 / 11</span></div>
 </section>
 
