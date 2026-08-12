@@ -25,7 +25,7 @@ body{font-family:var(--sans);background:radial-gradient(130% 120% at 15% 0%,#2b2
 .kicker::before{content:"";width:30px;height:2px;background:var(--accent)}
 h1{font-family:var(--serif);font-size:clamp(34px,6vw,58px);line-height:1.16;font-weight:900;letter-spacing:.01em}
 .lead{font-size:18px;line-height:1.75;color:#c9cdd6;margin-top:20px;max-width:680px}
-.cards{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px;margin-top:38px}
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:38px}
 @media(max-width:840px){.cards{grid-template-columns:1fr;gap:14px;margin-top:28px}body{padding:32px 18px}a.card{padding:24px 24px}.card h2{font-size:24px}.lead{font-size:16px}}
 a.card{display:flex;flex-direction:column;background:var(--paper);color:var(--ink);border-radius:18px;padding:26px 26px;text-decoration:none;box-shadow:0 18px 50px rgba(0,0,0,.35);transition:transform .15s,box-shadow .15s}
 a.card:hover{transform:translateY(-4px);box-shadow:0 26px 60px rgba(0,0,0,.45)}
@@ -33,12 +33,14 @@ a.card:hover{transform:translateY(-4px);box-shadow:0 26px 60px rgba(0,0,0,.45)}
 .card .no{font-family:var(--serif);font-size:16px;font-weight:900;color:var(--accent);letter-spacing:.1em;white-space:nowrap}
 .card.op .no{color:var(--teal-d)}
 .card.code .no{color:var(--gold-d)}
+.card.safe .no{color:#27455a}
 .card .badge{font-size:11px;font-weight:800;letter-spacing:.08em;color:var(--sub);border:1px solid var(--hair);border-radius:20px;padding:3px 10px;white-space:nowrap;flex:0 0 auto}
 .card h2{font-family:var(--serif);font-size:27px;font-weight:800;line-height:1.25;margin-bottom:10px;white-space:nowrap}
 .card p{font-size:14.5px;line-height:1.65;color:#4b535d}
 .card .go{margin-top:auto;padding-top:16px;font-weight:800;font-size:15px;color:var(--accent-d);display:flex;align-items:center;gap:8px}
 .card.op .go{color:var(--teal-d)}
 .card.code .go{color:var(--gold-d)}
+.card.safe .go{color:#27455a}
 .note{margin-top:30px;font-size:13.5px;color:#8a8f99;line-height:1.7}
 .foot{margin-top:34px;font-size:12px;color:#6b7280;letter-spacing:.06em}
 </style>
@@ -47,13 +49,13 @@ a.card:hover{transform:translateY(-4px);box-shadow:0 26px 60px rgba(0,0,0,.45)}
 <div class="wrap">
   <div class="kicker">Claude はじめてガイド</div>
   <h1>Claudeを、<br>入れて・知って・使いこなす。</h1>
-  <p class="lead">はじめての人向けの3部構成。上から順に読めば、インストールから運用、そして開発まで。Part 03 は開発する人向けの応用編。</p>
+  <p class="lead">はじめての人向け。本編は3部構成——上から順に、インストールから運用、そして開発まで。Part 04 は独立して読める安全編、他人の情報を扱い始めた人へ。</p>
 
   <div class="cards">
     <a class="card in" href="01-intro.html">
-      <div class="cardtop"><span class="no">Part 01 ── 導入編</span><span class="badge">Mac</span></div>
+      <div class="cardtop"><span class="no">Part 01 ── 導入編</span><span class="badge">Mac / Windows</span></div>
       <h2>入れて、始める</h2>
-      <p>Claudeとは（AIエージェント）／Chat・Cowork・Codeの違い／インストールから最初の会話まで。</p>
+      <p>Claudeとは（AIエージェント）／Chat・Cowork・Codeの違い／Mac・Windows両対応のインストールから最初の会話まで。</p>
       <div class="go">開く →</div>
     </a>
     <a class="card op" href="02-operation.html">
@@ -63,9 +65,15 @@ a.card:hover{transform:translateY(-4px);box-shadow:0 26px 60px rgba(0,0,0,.45)}
       <div class="go">開く →</div>
     </a>
     <a class="card code" href="03-code.html">
-      <div class="cardtop"><span class="no">Part 03 ── Code編</span><span class="badge">開発者向け</span></div>
+      <div class="cardtop"><span class="no">Part 03 ── Code編</span><span class="badge">Mac / Windows</span></div>
       <h2>開発させる</h2>
-      <p>ターミナルでAIに開発させる。インストール・承認のコツ・CLAUDE.md・MCP・安全。</p>
+      <p>ターミナルでAIに開発させる。Mac・Windows両対応のインストール・承認のコツ・CLAUDE.md・MCP・安全。</p>
+      <div class="go">開く →</div>
+    </a>
+    <a class="card safe" href="04-safety.html">
+      <div class="cardtop"><span class="no">Part 04 ── 安全編</span><span class="badge">独立編</span></div>
+      <h2>他人の情報を預かったら</h2>
+      <p>守る対象の絞り方／構造と運用の使い分け／運用を選ぶ作法と、引き返す条件。三部作を読んでいなくても読める。</p>
       <div class="go">開く →</div>
     </a>
   </div>

@@ -163,6 +163,15 @@ ul.plain b{color:var(--ink)}
   .foot{left:20px;right:20px;bottom:14px;font-size:11px}
   .detailbtn{bottom:34px}.detailpanel{padding:20px 22px 26px;max-height:74%}
 }
+/* mobile: let the whole page scroll so tall slides aren't cut */
+@media(max-width:820px){
+  html,body{height:auto!important;overflow:visible!important}
+  #stage{position:static!important;display:block!important;height:auto!important;inset:auto!important}
+  .slide{position:relative!important;width:100%!important;height:auto!important;min-height:100dvh!important;overflow:visible!important;border-radius:0!important;box-shadow:none!important}
+  .pad{height:auto!important;overflow:visible!important}
+  .foot{position:static!important;left:auto!important;right:auto!important;bottom:auto!important;margin-top:24px}
+  .wm,.setnum{display:none!important}
+}
 </style>
 </head>
 <body>
@@ -171,7 +180,7 @@ ul.plain b{color:var(--ink)}
 <div id="stage">
 
 <!-- 1 TITLE -->
-<section class="slide title active" data-note="つかみ：Coworkは画面で作業、Codeはターミナルで開発。同じClaudeの"開発特化版"。エンジニア寄りだが、頼み方はふつうの言葉でいい。" data-detail="Claude Codeは、ターミナル（黒い画面）から使うClaudeの開発特化版。コードを読んで・書いて・テストまで自分でやります。Coworkと同じ"エージェント"ですが、対象がソフトウェア開発に寄っています。">
+<section class="slide title active" data-note="つかみ：Coworkは画面で作業、Codeはターミナルで開発。同じClaudeの&quot;開発特化版&quot;。エンジニア寄りだが、頼み方はふつうの言葉でいい。" data-detail="Claude Codeは、ターミナル（黒い画面）から使うClaudeの開発特化版。コードを読んで・書いて・テストまで自分でやります。Coworkと同じ&quot;エージェント&quot;ですが、対象がソフトウェア開発に寄っています。">
   <div class="pad">
     <div class="kicker">Part 03 ── Claude Code 入門</div>
     <h1>ターミナルで、<br>AIに開発させる。</h1>
@@ -182,7 +191,7 @@ ul.plain b{color:var(--ink)}
 </section>
 
 <!-- 2 WHAT / VS COWORK -->
-<section class="slide" data-note="Coworkとの線引き。『Vault整理や資料はCowork、gitで管理する実装はCode』。今のBUCHIは基本Coworkでよく、1駅英語やゲームが本開発に入ったらCode。" data-detail="使い分けの基準は1つ：gitでバージョン管理する"開発"かどうか。資料・整理・文書はCowork、アプリやスクリプトの実装はCode。Codeはファイルとコマンドに広くアクセスでき、安全は「実行前の確認」で担保します。">
+<section class="slide" data-note="Coworkとの線引き。『Vault整理や資料はCowork、gitで管理する実装はCode』。今のBUCHIは基本Coworkでよく、1駅英語やゲームが本開発に入ったらCode。" data-detail="使い分けの基準は1つ：gitでバージョン管理する&quot;開発&quot;かどうか。資料・整理・文書はCowork、アプリやスクリプトの実装はCode。Codeはファイルとコマンドに広くアクセスでき、安全は「実行前の確認」で担保します。">
   <div class="pad">
     <div class="kicker">これは何 ／ いつ使う</div>
     <h2>Cowork と Code の違い</h2>
@@ -190,7 +199,7 @@ ul.plain b{color:var(--ink)}
       <colgroup><col><col><col class="hi"></colgroup>
       <thead><tr><th>軸</th><th>Cowork</th><th>Claude Code</th></tr></thead>
       <tbody>
-        <tr><th>入口</th><td>デスクトップアプリ（画面）</td><td>ターミナル・エディタ</td></tr>
+        <tr><th>入口</th><td>Web・アプリ・モバイル（ローカル操作時はDesktop）</td><td>ターミナル・エディタ</td></tr>
         <tr><th>得意</th><td>資料・整理・文書・調査</td><td>コードを書く・直す・テスト</td></tr>
         <tr><th>ファイル</th><td>つないだフォルダ</td><td>プロジェクト全体に広く</td></tr>
         <tr><th>使う人</th><td>非エンジニア</td><td>開発する人</td></tr>
@@ -203,15 +212,15 @@ ul.plain b{color:var(--ink)}
 </section>
 
 <!-- 3 PREREQ -->
-<section class="slide" data-note="準備物。Node.jsが要るのがハードル。有料プランかAPIキーのどちらかで動く。BUCHIは有料プラン持ちなのでそのまま使える。" data-detail="Node.jsは、Claude Codeを動かすための土台ソフト。バージョン22以上が必要です。操作は標準の「ターミナル.app」でOK。ログインは普段のClaudeアカウント（有料プラン）でそのまま。">
+<section class="slide" data-note="準備物。Node.jsが要るのがハードル。有料プランかAPIキーのどちらかで動く。BUCHIは有料プラン持ちなのでそのまま使える。" data-detail="ネイティブ版インストール（推奨）に Node.js は不要。npm 方式を選ぶ時だけ Node.js が必要。操作は Mac＝ターミナル.app／Windows＝PowerShell。ログインは有料プラン（Pro/Max/Team/Enterprise）でそのまま。">
   <div class="pad">
     <div class="kicker">始める前に</div>
     <h2>用意するもの</h2>
     <div class="reqs">
-      <div class="req"><div class="rn">1</div><div><div class="rt">Node.js 22 以上</div><div class="rd">Claude Code の土台ソフト。未導入なら nodejs.org か Homebrew で入れる。</div></div></div>
-      <div class="req"><div class="rn">2</div><div><div class="rt">ターミナル</div><div class="rd">Mac標準の「ターミナル.app」でOK。黒い画面に文字を打つ道具。</div></div></div>
-      <div class="req"><div class="rn">3</div><div><div class="rt">Claudeアカウント（有料）</div><div class="rd">普段の有料プランでそのまま使える。APIキーでも可。</div></div></div>
-      <div class="req"><div class="rn">4</div><div><div class="rt">作業するフォルダ</div><div class="rd">コードを置くプロジェクトの場所。無ければ空フォルダ1つでOK。</div></div></div>
+      <div class="req"><div class="rn">1</div><div><div class="rt">Claudeアカウント（有料）</div><div class="rd">Pro / Max / Team / Enterprise でそのまま使える（無料プランはCode不可）。APIキーでも可。</div></div></div>
+      <div class="req"><div class="rn">2</div><div><div class="rt">ターミナル</div><div class="rd">Mac＝「ターミナル.app」／Windows＝<b>PowerShell</b>（または CMD）。黒い画面に文字を打つ道具。</div></div></div>
+      <div class="req"><div class="rn">3</div><div><div class="rt">Git for Windows（Windowsのみ・任意）</div><div class="rd">Bash系コマンドを使うなら推奨。無くても PowerShell で動く。WSL では不要。</div></div></div>
+      <div class="req"><div class="rn">4</div><div><div class="rt">作業するフォルダ</div><div class="rd">コードを置く場所。無ければ空フォルダ1つでOK。<b>ネイティブ版インストールに Node.js は不要</b>（npm版だけ必要）。</div></div></div>
     </div>
     <p class="lead" style="margin-top:20px;font-size:17.5px">ターミナルは「ボタンの代わりに<b>文字で頼む</b>操作画面」——怖い見た目だが、打つのは数行だけ。<span class="hl">つまずいたらエラー文をそのままClaude（Chat）に貼ればいい</span>。導入の途中から、もうAIに手伝わせられる。</p>
   </div>
@@ -228,15 +237,15 @@ ul.plain b{color:var(--ink)}
         <div class="stepno">STEP 01</div>
         <div class="act">インストールする</div>
         <div class="detail">
-          <li><span class="b">a</span>ターミナルを開く</li>
-          <li><span class="b">b</span>下のコマンドを貼って実行</li>
-          <li><span class="b">c</span><b>sudo は付けない</b>（権限事故の元）</li>
+          <li><span class="b">a</span>ターミナル(Mac)／PowerShell(Win) を開く</li>
+          <li><span class="b">b</span>下の<b>自分のOS</b>のコマンドを実行（ネイティブ版・推奨）</li>
+          <li><span class="b">c</span>認証は起動後にブラウザで（有料プラン）</li>
         </div>
-        <div class="check"><div class="ct">確認</div><span class="mono" style="font-size:13.5px">claude --version</span> でバージョンが出れば成功。</div>
-        <div class="trip"><div class="ct">これは何</div><b>npm</b>＝Node.jsに付いてくるソフト配布の仕組み。世界中の開発ツールがこの「1行で入る」形式で配られていて、Claude Codeもその1つ。</div>
+        <div class="check"><div class="ct">確認</div><span class="mono" style="font-size:13.5px">claude --version</span> が出れば成功（両OS共通）。</div>
+        <div class="trip"><div class="ct">これは何</div>ネイティブ版は<b>Node.js不要</b>・自動更新。npm版（<span class="mono" style="font-size:12.5px">npm install -g @anthropic-ai/claude-code</span>）は代替でNode必要・<b>sudoは付けない</b>。</div>
       </div>
-      <div class="term"><div class="bar"><i></i><i></i><i></i><span class="tt">ターミナル</span></div>
-        <div class="body"><span class="p">~ %</span> <span class="c">npm install -g @anthropic-ai/claude-code</span><br><br><span class="o">added 1 package in 6s</span><br><span class="g">✓ claude-code installed</span></div>
+      <div class="term"><div class="bar"><i></i><i></i><i></i><span class="tt">ターミナル / PowerShell</span></div>
+        <div class="body"><span class="o"># Mac / Linux（ネイティブ・推奨）</span><br><span class="p">~ %</span> <span class="c">curl -fsSL https://claude.ai/install.sh | bash</span><br><br><span class="o"># Windows（PowerShell・推奨）</span><br><span class="p">PS&gt;</span> <span class="c">irm https://claude.ai/install.ps1 | iex</span><br><br><span class="g">✓ claude installed</span></div>
       </div>
     </div>
   </div>
@@ -270,7 +279,7 @@ ul.plain b{color:var(--ink)}
 </section>
 
 <!-- 6 BASIC LOOP -->
-<section class="slide" data-note="基本の回し方。頼む→計画→承認→実行→検証のループ。最初は変更を自分でも見る。テストと復元点への信頼が育ってから読む量を減らす——公式の成熟段階（Step1→2）と同じ順序、と補足する。" data-detail="コツは、細かく指示するより"やってほしい結果"を伝えること。Claudeが計画と変更案を出すので、人はそれを承認するだけ。危ない操作の前には必ず確認が入るので、内容を見てからOKを出せます。">
+<section class="slide" data-note="基本の回し方。頼む→計画→承認→実行→検証のループ。最初は変更を自分でも見る。テストと復元点への信頼が育ってから読む量を減らす——公式の成熟段階（Step1→2）と同じ順序、と補足する。" data-detail="コツは、細かく指示するより&quot;やってほしい結果&quot;を伝えること。Claudeが計画と変更案を出すので、人はそれを承認するだけ。既定モードでは編集やコマンド実行の前に確認が入るので内容を見てOK。ただし権限モードや保存済み許可で確認を省ける範囲がある点に注意。">
   <div class="pad">
     <div class="kicker">基本の使い方</div>
     <h2>頼む → 承認する → 実行</h2>
@@ -297,7 +306,7 @@ ul.plain b{color:var(--ink)}
 </section>
 
 <!-- 7 APPROVAL -->
-<section class="slide" data-note="実体験から：確認プロンプトは3択。基本はYes（1回だけ許可）。『don't ask again for: ○○』は○○の範囲を必ず読む——sh全般やbrew install *のような広い包括許可は選ばない。迷ったらNoで意図を聞き返す。" data-detail="Claude Codeは危ない操作の前に必ず確認してきます。選択肢はだいたい3つ。「Yes」はその1回だけの許可。「Yes, and don't ask again for: ○○」は今後○○を無確認にする——○○の範囲が広い時（例：shコマンド全般）は選ばないのが安全です。迷ったらNoを選び、何をしようとしているのか聞き返せば大丈夫。">
+<section class="slide" data-note="実体験から：確認プロンプトは3択。基本はYes（1回だけ許可）。『don't ask again for: ○○』は○○の範囲を必ず読む——sh全般やbrew install *のような広い包括許可は選ばない。迷ったらNoで意図を聞き返す。" data-detail="既定モードのClaude Codeは編集やコマンド実行の前に確認してきます（権限モードや保存済み許可で省ける範囲はある）。選択肢はだいたい3つ。「Yes」はその1回だけの許可。「Yes, and don't ask again for: ○○」は今後○○を無確認にする——○○の範囲が広い時（例：shコマンド全般）は選ばないのが安全です。迷ったらNoを選び、何をしようとしているのか聞き返せば大丈夫。">
   <div class="pad">
     <div class="kicker">基本の使い方</div>
     <div class="step">
@@ -322,7 +331,7 @@ ul.plain b{color:var(--ink)}
 </section>
 
 <!-- 8 /init CLAUDE.md -->
-<section class="slide" data-note="最初にやるのは /init。プロジェクトのCLAUDE.mdを作り、そこに"決まり"を書く。Coworkでいう運用ルールと同じ役割。BUCHIのVault運用がそのまま移植先。" data-detail="CLAUDE.mdは、そのプロジェクトの"決まり"をClaudeに毎回読ませる設定ファイル。使う技術・命名ルール・触ってほしくない場所などを書きます。Coworkの運用ルールと同じ発想で、あなたのVaultの決まりをここに写せます。">
+<section class="slide" data-note="最初にやるのは /init。プロジェクトのCLAUDE.mdを作り、そこに&quot;決まり&quot;を書く。Coworkでいう運用ルールと同じ役割。BUCHIのVault運用がそのまま移植先。" data-detail="CLAUDE.mdは、そのプロジェクトの&quot;決まり&quot;をClaudeに毎回読ませる設定ファイル。使う技術・命名ルール・触ってほしくない場所などを書きます。Coworkの運用ルールと同じ発想で、あなたのVaultの決まりをここに写せます。">
   <div class="pad">
     <div class="kicker">最初にやること</div>
     <h2>/init で「決まり」を教える</h2>
@@ -364,7 +373,7 @@ ul.plain b{color:var(--ink)}
 </section>
 
 <!-- 10 MCP -->
-<section class="slide" data-note="拡張の話。MCP＝外部ツール接続の共通規格。実例：ObsidianのVaultを繋いだ。登録は素のターミナルから claude mcp add（Code内のシェルはAPIキー等の対話入力ができない）。確認は /mcp で connected。" data-detail="MCPは、Claudeに外部ツールという"手足"を足す共通規格。例えばObsidian（メモアプリ）を繋ぐと、CodeがVaultの検索・読み書きをできるようになります。登録はCodeの外（ふつうのターミナル）で claude mcp add を実行——APIキーの入力など"対話が要る"操作はCodeの中では動かないため。繋いだら /mcp で connected になっているか確認します。">
+<section class="slide" data-note="拡張の話。MCP＝外部ツール接続の共通規格。実例：ObsidianのVaultを繋いだ。登録は素のターミナルから claude mcp add（Code内のシェルはAPIキー等の対話入力ができない）。確認は /mcp で connected。" data-detail="MCPは、Claudeに外部ツールという&quot;手足&quot;を足す共通規格。例えばObsidian（メモアプリ）を繋ぐと、CodeがVaultの検索・読み書きをできるようになります。登録はCodeの外（ふつうのターミナル）で claude mcp add を実行——APIキーの入力など&quot;対話が要る&quot;操作はCodeの中では動かないため。繋いだら /mcp で connected になっているか確認します。">
   <div class="pad">
     <div class="kicker">拡張する</div>
     <div class="step">
@@ -389,12 +398,12 @@ ul.plain b{color:var(--ink)}
 </section>
 
 <!-- 11 SAFETY -->
-<section class="slide" data-note="安全の考え方。Codeは広い権限を持つが、破壊的操作は"実行前の確認"で守る。gitで復元点。仕組み化はhooks——実例：guard-bashがgit reset --hard等をブロック。hooks自体もClaudeに作らせて検証できる。" data-detail="Claude Codeはファイルもコマンドも広く扱えます。だから安全は"実行前の確認"で担保：消す・上書き・送信などの前に必ず聞いてきます。加えてgitでこまめに保存点を作れば、まずい変更もまるごと戻せます。">
+<section class="slide" data-note="安全の考え方。Codeは広い権限を持つ。既定モードでは破壊的操作の前に確認が入るが、権限モードや保存済み許可で省ける範囲があると必ず補足。gitで復元点。仕組み化はhooks——実例：guard-bashがgit reset --hard等をブロック。hooks自体もClaudeに作らせて検証できる。" data-detail="Claude Codeはファイルもコマンドも広く扱えます。だから安全の基本は&quot;モードと許可範囲の把握&quot;：既定モードでは消す・上書き・送信などの前に確認が入るが、権限モードや保存済み許可で省ける範囲があるので、モード表示と許可を確認する。加えてgitでこまめに保存点を作れば、まずい変更もまるごと戻せます。">
   <div class="pad">
     <div class="kicker">安全に使う</div>
     <h2>広い権限は、確認で守る</h2>
     <ul class="plain">
-      <li><span class="ln">1</span><b>破壊的操作は実行前に確認</b>が入る（消す・上書き・送信）。中身を見てからOK</li>
+      <li><span class="ln">1</span><b>既定モードでは破壊的操作の前に確認</b>が入る（消す・上書き・送信）。ただし権限モードや許可設定で省ける範囲があるので、モードと許可を確認。初心者は <span class="mono" style="font-size:15px">default</span> か <span class="mono" style="font-size:15px">plan</span> を推奨</li>
       <li><span class="ln">2</span><b>git で復元点</b>を作っておく。失敗しても丸ごと戻せる</li>
       <li><span class="ln">3</span>認証・課金・削除など<b>重い操作は自分で最終判断</b></li>
     </ul>
@@ -407,7 +416,7 @@ ul.plain b{color:var(--ink)}
 </section>
 
 <!-- 10 NEXT -->
-<section class="slide title" data-note="次の一歩。BUCHIはメモリに"Claude Code導入プラン"がある。1駅英語かゲームがgit管理に入ったら、Vault運用をCLAUDE.md/rules/hooksに写す。" data-detail="次は自分のプロジェクトで /init して CLAUDE.md を1枚書くところから。慣れたら、今のVault運用（決まり・機微の隔離・引き継ぎ）をCLAUDE.md・rules・hooksに写していくと、Coworkで育てた仕組みがそのまま開発でも効きます。">
+<section class="slide title" data-note="次の一歩。BUCHIはメモリに&quot;Claude Code導入プラン&quot;がある。1駅英語かゲームがgit管理に入ったら、Vault運用をCLAUDE.md/rules/hooksに写す。" data-detail="次は自分のプロジェクトで /init して CLAUDE.md を1枚書くところから。慣れたら、今のVault運用（決まり・機微の隔離・引き継ぎ）をCLAUDE.md・rules・hooksに写していくと、Coworkで育てた仕組みがそのまま開発でも効きます。">
   <div class="pad">
     <div class="kicker">次の一歩</div>
     <h1 style="font-size:52px">まず /init して、<br>1枚書いてみる。</h1>
@@ -443,7 +452,7 @@ function render(){
   closeDetails();
   if(presenterWin&&!presenterWin.closed){const d=presenterWin.document,n=d.getElementById('n'),p=d.getElementById('p');if(n)n.textContent='スライド '+(cur+1)+' / '+slides.length;if(p)p.textContent=slides[cur].dataset.note||'（このスライドにノートはありません）';}
 }
-function go(n){cur=Math.max(0,Math.min(slides.length-1,n));render();}
+function go(n){cur=Math.max(0,Math.min(slides.length-1,n));render();try{window.scrollTo(0,0);}catch(e){}}
 function openPresenter(){
   presenterWin=window.open('','deckPresenter','width=560,height=460');
   if(!presenterWin){alert('ポップアップを許可してください。');return;}

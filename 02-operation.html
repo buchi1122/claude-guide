@@ -204,6 +204,15 @@ ul.plain b{color:var(--ink)}
 .detailpanel .dx{cursor:pointer;color:#9aa2af;font-size:13px}
 .detailpanel .dbody{font-size:16.5px;line-height:1.82}
 @media(max-width:820px){.detailbtn{bottom:34px}.detailpanel{padding:20px 22px 26px;max-height:74%}}
+/* mobile: let the whole page scroll so tall slides aren't cut */
+@media(max-width:820px){
+  html,body{height:auto!important;overflow:visible!important}
+  #stage{position:static!important;display:block!important;height:auto!important;inset:auto!important}
+  .slide{position:relative!important;width:100%!important;height:auto!important;min-height:100dvh!important;overflow:visible!important;border-radius:0!important;box-shadow:none!important}
+  .pad{height:auto!important;overflow:visible!important}
+  .foot{position:static!important;left:auto!important;right:auto!important;bottom:auto!important;margin-top:24px}
+  .wm,.setnum,.hero-line{display:none!important}
+}
 </style>
 </head>
 <body>
@@ -212,7 +221,7 @@ ul.plain b{color:var(--ink)}
 <div id="stage">
 
 <!-- 1 TITLE -->
-<section class="slide title active" data-note="つかみ：『AIって皆、質問して答えもらって終わりでしょ。俺は"仕組み"にしてる。今日は実際の画面で見せる』。最後のスライドで"これ自体Claude作"と明かす伏線を張る。" data-detail="「運用」とは、AIに毎回説明し直す手間をなくすこと。この後の4つの仕組みは、どれも「次に渡す文脈を残す」ための道具です。全部を一度に入れる必要はありません。">
+<section class="slide title active" data-note="つかみ：『AIって皆、質問して答えもらって終わりでしょ。俺は&quot;仕組み&quot;にしてる。今日は実際の画面で見せる』。最後のスライドで&quot;これ自体Claude作&quot;と明かす伏線を張る。" data-detail="「運用」とは、AIに毎回説明し直す手間をなくすこと。この後の4つの仕組みは、どれも「次に渡す文脈を残す」ための道具です。全部を一度に入れる必要はありません。">
   <div class="pad">
     <div class="kicker">Part 02 ── 運用編（BUCHI流）</div>
     <h1>Claudeを<br>"使う"から<br>"運用する"へ。</h1>
@@ -223,7 +232,7 @@ ul.plain b{color:var(--ink)}
 </section>
 
 <!-- 2 WHY — the one meaningful chart -->
-<section class="slide" data-note="共感を取る。『昨日と同じ資料を上げて、また一から説明してない？』。Before側は友人の実体験。グラフは"積み上がるか/フラットか"の概念図。データでなく概念を表す図だと明示してOK。" data-detail="多くの人がAIに満足できないのは能力の限界ではなく、文脈が毎回リセットされるから。同じ説明を繰り返す負担が、AIを「賢い検索」で終わらせています。運用は、その負担を仕組みに肩代わりさせることです。">
+<section class="slide" data-note="共感を取る。『昨日と同じ資料を上げて、また一から説明してない？』。Before側は友人の実体験。グラフは&quot;積み上がるか/フラットか&quot;の概念図。データでなく概念を表す図だと明示してOK。" data-detail="多くの人がAIに満足できないのは能力の限界ではなく、文脈が毎回リセットされるから。同じ説明を繰り返す負担が、AIを「賢い検索」で終わらせています。運用は、その負担を仕組みに肩代わりさせることです。">
   <div class="pad">
     <div class="kicker">なぜ運用するのか</div>
     <h2>毎回ゼロから説明していないか？</h2>
@@ -251,7 +260,7 @@ ul.plain b{color:var(--ink)}
 </section>
 
 <!-- 3 TOOLS & IDEA -->
-<section class="slide" data-note="前提を最初に置く。道具はClaudeとObsidianの2つだけ、考え方は『AIの記憶は断片的で制御しにくい→文脈を自分の手元に置いて毎回読ませる』。※『記憶は消える』と断定しない——今のClaudeには自動メモリがある。制御の問題として話す。Obsidianを知らない人はここで初めて名前を聞く前提で。" data-detail="Obsidianは無料のメモアプリ（Mac/Windows/スマホ対応）。書いたものは"ただのテキストファイル"として自分のPCに残るので、特定サービスに囲い込まれず、AIにも読ませやすい。「第2の脳」と呼ばれる使い方の定番ツールです。">
+<section class="slide" data-note="前提を最初に置く。道具はClaudeとObsidianの2つだけ、考え方は『AIの記憶は断片的で制御しにくい→文脈を自分の手元に置いて毎回読ませる』。※『記憶は消える』と断定しない——今のClaudeには自動メモリがある。制御の問題として話す。Obsidianを知らない人はここで初めて名前を聞く前提で。" data-detail="Obsidianは無料のメモアプリ（Mac/Windows/スマホ対応）。書いたものは&quot;ただのテキストファイル&quot;として自分のPCに残るので、特定サービスに囲い込まれず、AIにも読ませやすい。「第2の脳」と呼ばれる使い方の定番ツールです。">
   <div class="pad">
     <div class="kicker">前提 ── 道具と考え方</div>
     <h2>道具は2つ。考え方は1つ。</h2>
@@ -315,13 +324,13 @@ ul.plain b{color:var(--ink)}
 </section>
 
 <!-- 5 VAULT -->
-<section class="slide" data-note="Obsidianの実Vaultを見せる。プロジェクト一覧まで。個別の中身は開かない（機微）。private/の存在も見せ『機微はここに隔離してAIにも出さない』。" data-detail="Obsidianは無料のメモアプリ。ここではAIに読ませる前提でフォルダとルールを整えます。機微をprivateに隔離するのは、後で共有や公開をしても事故らないための保険です。">
+<section class="slide" data-note="Obsidianの実Vaultを見せる。プロジェクト一覧まで。個別の中身は開かない（機微）。private/は整理の目印でアクセス制御ではない——『本当に出したくないものは接続するフォルダの外へ』と補足する。" data-detail="Obsidianは無料のメモアプリ。AIに読ませる前提でフォルダとルールを整えます。機微は接続するフォルダの外へ置くのが確実。private/ は目印で、接続を許可したフォルダはClaudeが読める点に注意。">
   <div class="pad">
     <div class="kicker">仕組み ── 記憶（層02）</div>
     <h2>Obsidian Vault ＝ 文脈の家</h2>
     <div class="grid g2">
       <div class="item tint"><div class="no">A</div><div class="t">プロジェクトで分ける</div><div class="d">仕事・趣味・創作など領域ごとにフォルダ。各フォルダに「運用ルール」と「目次」を置くと、AIが作業前に読んで前提を掴む。<br><br><b>置くのは2枚だけ</b>——決まりを書く「運用ルール」と、今どこに何があるかの「目次」。それ以上は増やさない。</div></div>
-      <div class="item tint"><div class="no">B</div><div class="t">機微は private に隔離</div><div class="d">お金・取引・個人的なことは各プロジェクトの <span class="tag">private/</span> へ。共有・公開の単位から自動で外れ、AIのメモリにも残さない。<br><br><b>判断でなく構造で守る</b>のがポイント。「気をつける」は破られるが、フォルダの壁は破られない。閲覧パスワードも併用できる。</div></div>
+      <div class="item tint"><div class="no">B</div><div class="t">機微は接続の外へ分ける</div><div class="d">お金・取引・個人的なことは、<b>Claudeに接続するフォルダの外</b>へ分けるのが基本。作業時は<b>必要な範囲だけ接続</b>し、機微を含む親フォルダごと渡さない。<br><br><span class="tag">private/</span> は整理上の目印で<b>アクセス制御ではない</b>——接続を許可したフォルダはClaudeが読み書きできる。閲覧パスワード等は別の対策。</div></div>
     </div>
     <hr class="rule" style="margin:18px 0 0">
     <p class="lead" style="margin-top:16px;font-size:19px"><span class="hl">人が読むノートと、AIが読む記憶は設計が違う。</span>だから分けておくと、どっちも軽くなる。</p>
@@ -332,7 +341,7 @@ ul.plain b{color:var(--ink)}
 </section>
 
 <!-- 6 HANDOFF -->
-<section class="slide" data-note="引き継ぎの実演がベスト。今の会話で『引き継ぎ保存』と言い、ログに差分が溜まる様子を見せる。新会話で『引き継ぎ読んで』で復元まで見せられれば完璧。" data-detail="会話そのものは消えても、決定と前提をログに残せば知識は消えません。「保存」「読んで」の2語で、昨日の自分から今日の自分へバトンが渡ります。">
+<section class="slide" data-note="引き継ぎの実演がベスト。今の会話で『引き継ぎ保存』と言い、ログに差分が溜まる様子を見せる。新会話で『引き継ぎ読んで』で復元まで見せられれば完璧。" data-detail="新しい会話に前会話の詳細が常にすべて渡るとは限らないので、決定と前提をログに残す。「保存」「読んで」はBUCHI流の合言葉で、事前にカスタム指示と保存先を設定した時だけ動く（標準コマンドではない）。">
   <div class="pad">
     <div class="kicker">仕組み ── 記憶×自動化（層02・04）</div>
     <h2>会話を跨いで、続きから</h2>
@@ -350,14 +359,14 @@ ul.plain b{color:var(--ink)}
       <div class="item teal"><div class="no">2</div><div class="t">引き継ぎログ</div><div class="d"><span class="tag">保存</span>で決定・前提・未決を記録。<span class="tag">読んで</span>で現在地から再開。<br><br>正本に反映した分は消す——ログは「まだ反映していない差分」だけの軽い置き場に保つ。</div></div>
       <div class="item gold"><div class="no">3</div><div class="t">持ち出し</div><div class="d">制限中やスマホの時は他AIにも貼れる要約を出し、戻ったら差分だけ回収。<br><br>チャネルが変わっても、<b>成果の貯め先は1箇所のまま</b>散らばらない。</div></div>
     </div>
-    <p class="lead" style="margin-top:14px;font-size:17.5px">使うのは<span class="hl">「引き継ぎ保存」と「引き継ぎ読んで」の2語だけ</span>。会話の終わりに保存、翌日の新しい会話で読む——それで昨日の続きになる。</p>
+    <p class="lead" style="margin-top:14px;font-size:17.5px">使うのは<span class="hl">「引き継ぎ保存」と「引き継ぎ読んで」の2語だけ</span>。<b>※これはBUCHI流の合言葉で、事前にカスタム指示＋保存先を設定した場合のみ動く（標準コマンドではない）。</b>会話の終わりに保存、翌日の新しい会話で読む——それで昨日の続きになる。</p>
   </div>
   <div class="wm teal">継承</div>
   <div class="foot"><span>記憶</span><span class="pg">07 / 13</span></div>
 </section>
 
 <!-- 7 MODES -->
-<section class="slide" data-note="モードは"AIの人格切り替え"。『普段は簡潔・正確。作品を一緒に読む時は考察、物語を書く時は創作』。宣言するだけ、中身は設定に。" data-detail="モードは指示のプリセット切り替え。考察は評価せず一緒に見る、創作は事実確認より世界観。用途に合わない性格のままだと、噛み合わない答えが増えます。">
+<section class="slide" data-note="モードは&quot;AIの人格切り替え&quot;。『普段は簡潔・正確。作品を一緒に読む時は考察、物語を書く時は創作』。宣言するだけ、中身は設定に。" data-detail="モードは指示のプリセット切り替え。考察は評価せず一緒に見る、創作は事実確認より世界観。用途に合わない性格のままだと、噛み合わない答えが増えます。">
   <div class="pad">
     <div class="kicker">仕組み ── モード（層03）</div>
     <h2>用途で、"人格"を切り替える</h2>
@@ -373,7 +382,7 @@ ul.plain b{color:var(--ink)}
 </section>
 
 <!-- 8 EXAMPLES — clean editorial cards, no fake charts -->
-<section class="slide" data-note="実例。実画面を見せられるものは見せる（レシピ台帳・監査報告）。受託アプリは"英語学習アプリのプロトタイプ"と抽象化（他人の案件なので固有名は出さない）。" data-detail="いずれもコードを書かない自動化です。プロトタイプ生成・情報の台帳化・定期点検・他AI併用。共通点は、作業をAIに、判断を自分に、という分担です。">
+<section class="slide" data-note="実例。実画面を見せられるものは見せる（レシピ台帳・監査報告）。受託アプリは&quot;英語学習アプリのプロトタイプ&quot;と抽象化（他人の案件なので固有名は出さない）。" data-detail="いずれもコードを書かない自動化です。プロトタイプ生成・情報の台帳化・定期点検・他AI併用。共通点は、作業をAIに、判断を自分に、という分担です。">
   <div class="pad">
     <div class="kicker">実用例</div>
     <h2>実際に、こう使っている</h2>
@@ -412,7 +421,7 @@ ul.plain b{color:var(--ink)}
     <ul class="plain">
       <li><span class="ln">1</span><b>カスタム指示に3行</b>書く（簡潔／推測は明示／結論から）</li>
       <li><span class="ln">2</span><b>Obsidianで1フォルダ</b>作り、運用ルールを1枚置く</li>
-      <li><span class="ln">3</span>会話の最後に<b>「引き継ぎ保存」</b>と言ってみる</li>
+      <li><span class="ln">3</span>会話の最後に<b>「引き継ぎ保存」</b>と言ってみる（※要・事前設定＝BUCHI流の合言葉）</li>
     </ul>
     <p class="lead" style="margin-top:var(--sp-3)">全部一気にやらない。<span class="hl">増やすほど重くなる</span>から、要るものだけ足していく。</p>
     <hr class="rule">
@@ -484,7 +493,7 @@ function render(){
   closeDetails();
   if(presenterWin&&!presenterWin.closed){const d=presenterWin.document,n=d.getElementById('n'),p=d.getElementById('p');if(n)n.textContent='スライド '+(cur+1)+' / '+slides.length;if(p)p.textContent=slides[cur].dataset.note||'（このスライドにノートはありません）';}
 }
-function go(n){cur=Math.max(0,Math.min(slides.length-1,n));render();}
+function go(n){cur=Math.max(0,Math.min(slides.length-1,n));render();try{window.scrollTo(0,0);}catch(e){}}
 function openPresenter(){
   presenterWin=window.open('','deckPresenter','width=560,height=460');
   if(!presenterWin){alert('ポップアップがブロックされました。許可してください。');return;}

@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
-<title>Claude 導入編（Mac）— インストールして使い始めるまで</title>
+<title>Claude 導入編（Mac / Windows）— インストールして使い始めるまで</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Noto+Serif+JP:wght@600;700;900&display=swap" rel="stylesheet">
@@ -121,6 +121,15 @@ ul.plain b{color:var(--ink)}
   .wm{display:none}
 }
 :focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+/* mobile: let the whole page scroll so tall slides aren't cut */
+@media(max-width:820px){
+  html,body{height:auto!important;overflow:visible!important}
+  #stage{position:static!important;display:block!important;height:auto!important;inset:auto!important}
+  .slide{position:relative!important;width:100%!important;height:auto!important;min-height:100dvh!important;overflow:visible!important;border-radius:0!important;box-shadow:none!important}
+  .pad{height:auto!important;overflow:visible!important}
+  .foot{position:static!important;left:auto!important;right:auto!important;bottom:auto!important;margin-top:24px}
+  .wm,.setnum{display:none!important}
+}
 
 /* concept: agent (two-col) */
 .two{display:grid;grid-template-columns:1fr 1fr;gap:var(--sp-3);margin-top:var(--sp-3)}
@@ -210,7 +219,7 @@ ul.plain b{color:var(--ink)}
 <!-- 1 TITLE -->
 <section class="slide title active" data-note="つかみ：『今日はこれを入れて、最初のひとことを送るまで。10分で終わる』。難しい話はしない宣言をして安心させる。OSアップデートが済んでいるか先に聞いておく。" data-detail="この導入編だけで、インストールから最初の会話まで到達できます。難しい設定は後（運用編）に回してあるので、まずは動かすことに集中して大丈夫。">
   <div class="pad">
-    <div class="kicker">Part 01 ── 導入編（Mac）</div>
+    <div class="kicker">Part 01 ── 導入編（Mac / Windows）</div>
     <h1>Claudeを、<br>入れて、始める。</h1>
     <p class="lead" style="margin-top:26px;max-width:640px">ダウンロードから、最初のひとことを送るまで。<br>この通りに進めれば、10分で使い始められる。</p>
   </div>
@@ -273,10 +282,10 @@ ul.plain b{color:var(--ink)}
         <tr><th>性格</th><td>アシスタント（答える）</td><td>エージェント（やり遂げる）</td><td>エージェント（やり遂げる）</td></tr>
         <tr><th>何をする</th><td>相談・思考・下書き</td><td>作業して成果物を残す</td><td>ソフトを作る・直す</td></tr>
         <tr><th>得意な例</th><td>文章・翻訳・調べ物の相談</td><td>資料づくり・ファイル整理・調査まとめ</td><td>アプリ・サイト・自動化スクリプト</td></tr>
-        <tr><th>ファイル操作</th><td class="no">できない（会話だけ）</td><td class="yes">つないだフォルダ内で読み書き</td><td class="yes">プロジェクト全体に広く（確認つき）</td></tr>
+        <tr><th>ファイル操作</th><td>ローカルは直接扱わない（資料をアップして解析・生成は可）</td><td class="yes">つないだフォルダ内で読み書き</td><td class="yes">プロジェクト全体に広く（確認つき）</td></tr>
         <tr><th>コード実行</th><td class="no">しない</td><td>必要な時だけ（安全な箱の中で）</td><td class="yes">中心的に（ターミナルで）</td></tr>
         <tr><th>使う人</th><td>だれでも</td><td>非エンジニア</td><td>開発する人</td></tr>
-        <tr><th>入口</th><td>Web・アプリ・スマホ</td><td>デスクトップアプリ</td><td>ターミナル・IDE</td></tr>
+        <tr><th>入口</th><td>Web・アプリ・スマホ</td><td>Web・アプリ・モバイル（ローカル操作時はDesktop）</td><td>ターミナル・IDE</td></tr>
       </tbody>
     </table>
     <p class="lead" style="margin-top:16px;font-size:18px">まずは <span class="hl">Chatで相談、作業させたくなったらCowork</span>。この導入ではその土台を入れる。</p>
@@ -291,9 +300,9 @@ ul.plain b{color:var(--ink)}
     <div class="kicker">始める前に</div>
     <h2>用意するもの、4つ</h2>
     <div class="reqs">
-      <div class="req"><div class="rn">1</div><div><div class="rt">Mac（macOS 最新）</div><div class="rd">先にシステム設定からOSを最新にアップデートしておく。</div></div></div>
+      <div class="req"><div class="rn">1</div><div><div class="rt">パソコン（Mac または Windows）</div><div class="rd">macOS最新、または Windows 10/11。先にOSを最新へ。<b>Windowsのデスクトップで Cowork を使うには管理者権限＋「Virtual Machine Platform」有効化＋再起動</b>が必要（Web/モバイルは不要・エディション不問）。</div></div></div>
       <div class="req"><div class="rn">2</div><div><div class="rt">メール または Google アカウント</div><div class="rd">サインインに使う。普段使っているもので良い。</div></div></div>
-      <div class="req"><div class="rn">3</div><div><div class="rt">有料プラン（Pro など）</div><div class="rd">Cowork（作業モード）は有料プランで使える。料金は公式で最新を確認。</div></div></div>
+      <div class="req"><div class="rn">3</div><div><div class="rt">有料プラン</div><div class="rd">Cowork（作業モード）は有料プラン（Pro / Max / Team / Enterprise）で使える。料金は公式で最新を確認。</div></div></div>
       <div class="req"><div class="rn">4</div><div><div class="rt">ネット接続</div><div class="rd">ダウンロードとサインインに必要。</div></div></div>
     </div>
     <p class="lead" style="margin-top:20px;font-size:18px">支払いに抵抗があれば、まず無料でサインインして触り、必要になってからProに上げてもいい。</p>
@@ -312,17 +321,17 @@ ul.plain b{color:var(--ink)}
         <div class="act">アプリを<br>ダウンロードする</div>
         <div class="detail">
           <li><span class="b">a</span>ブラウザで <b>claude.com/download</b> を開く</li>
-          <li><span class="b">b</span><b>Mac 版</b>を選ぶ（自動で最適な版になる）</li>
-          <li><span class="b">c</span>ダウンロードフォルダに <b>.dmg</b> が入る</li>
+          <li><span class="b">b</span><b>お使いのOSの版</b>を選ぶ（Mac＝.dmg／Windows＝.exe。多くは自動判別）</li>
+          <li><span class="b">c</span>ダウンロードフォルダに入る</li>
         </div>
-        <div class="check"><div class="ct">確認</div>「ダウンロード」に Claude の .dmg ファイルがあればOK。</div>
+        <div class="check"><div class="ct">確認</div>「ダウンロード」に Claude のインストーラ（Mac＝.dmg／Windows＝.exe）があればOK。</div>
       </div>
       <div class="mock">
         <div class="winbar"><i></i><i></i><i></i><span class="url">claude.com/download</span></div>
         <div class="mockbody">
           <div class="mtxt">Download Claude</div>
           <div class="msub" style="margin-bottom:20px">macOS · Windows · Linux</div>
-          <div class="dlbtn">↓ Mac 版をダウンロード</div>
+          <div class="dlbtn">↓ お使いのOS版をダウンロード</div>
         </div>
       </div>
     </div>
@@ -340,11 +349,11 @@ ul.plain b{color:var(--ink)}
         <div class="stepno">STEP 02</div>
         <div class="act">アプリを<br>インストールする</div>
         <div class="detail">
-          <li><span class="b">a</span>ダウンロードした <b>.dmg</b> をダブルクリックで開く</li>
-          <li><span class="b">b</span>出てきた <b>Claude</b> を <b>Applications</b> フォルダへドラッグ</li>
+          <li><span class="b">M</span><b>Mac</b>：.dmg を Applications へドラッグ</li>
+          <li><span class="b">W</span><b>Win</b>：.exe を実行し指示に沿う</li>
         </div>
-        <div class="check"><div class="ct">確認</div>「アプリケーション」に Claude が並べば完了。</div>
-        <div class="trip"><div class="ct">つまずいたら</div>「開発元を確認できない」と出たら、右クリック →「開く」で一度許可すれば以後ふつうに起動できる。</div>
+        <div class="check"><div class="ct">確認</div>Mac＝アプリケーション／Win＝スタートに Claude が出ればOK。</div>
+        <div class="trip"><div class="ct">つまずいたら</div>警告が出たら、まず<b>公式(claude.com)から入手したか確認</b>。OKなら Mac「システム設定→プライバシーとセキュリティ→このまま開く」／Win「詳細情報→実行」。不明なら実行しない。</div>
       </div>
       <div class="mock">
         <div class="winbar"><i></i><i></i><i></i><span class="url">Claude.dmg</span></div>
@@ -371,7 +380,7 @@ ul.plain b{color:var(--ink)}
         <div class="stepno">STEP 03</div>
         <div class="act">起動して<br>サインインする</div>
         <div class="detail">
-          <li><span class="b">a</span>「アプリケーション」から <b>Claude</b> を起動</li>
+          <li><span class="b">a</span><b>Claude</b> を起動（Mac＝アプリケーション／Windows＝スタートメニュー）</li>
           <li><span class="b">b</span><b>Google</b> か <b>メール</b>でサインイン</li>
           <li><span class="b">c</span>Webで使っているのと<b>同じアカウント</b>を選ぶ</li>
         </div>
@@ -406,7 +415,7 @@ ul.plain b{color:var(--ink)}
           <li><span class="b">c</span>設定 → プランから <b>Pro</b> 等に加入</li>
         </div>
         <div class="check"><div class="ct">確認</div>左のメニューに <span class="tag">Cowork</span> が現れれば有料が有効。</div>
-        <div class="trip"><div class="ct">メモ</div>料金は変わることがある。金額は公式（claude.com）で最新を確認してから決める。</div>
+        <div class="trip"><div class="ct">メモ</div>料金は変わるので公式で確認。Coworkは有料（Pro / Max / Team / Enterprise）。<b>Windowsのデスクトップ版Coworkは管理者権限＋Virtual Machine Platform＋再起動</b>が要る（Web/モバイルは不要・エディション不問）。</div>
       </div>
       <div class="mock">
         <div class="winbar"><i></i><i></i><i></i></div>
@@ -489,7 +498,7 @@ function render(){
   closeDetails();
   if(presenterWin&&!presenterWin.closed){const d=presenterWin.document,n=d.getElementById('n'),p=d.getElementById('p');if(n)n.textContent='スライド '+(cur+1)+' / '+slides.length;if(p)p.textContent=slides[cur].dataset.note||'（このスライドにノートはありません）';}
 }
-function go(n){cur=Math.max(0,Math.min(slides.length-1,n));render();}
+function go(n){cur=Math.max(0,Math.min(slides.length-1,n));render();try{window.scrollTo(0,0);}catch(e){}}
 function openPresenter(){
   presenterWin=window.open('','deckPresenter','width=560,height=460');
   if(!presenterWin){alert('ポップアップがブロックされました。許可してください。');return;}
